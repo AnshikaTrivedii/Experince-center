@@ -192,8 +192,8 @@ export function WhyVisit() {
           <div className="relative aspect-[21/9] min-h-[200px] w-full sm:min-h-[260px]">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/images/orion-booth.jpg"
-              alt="Orion LED immersive display wall"
+              src="/images/orion-experience-showroom.png"
+              alt="Orion LED Experience Centre showroom"
               className="absolute inset-0 h-full w-full object-cover object-center"
             />
             <div className="absolute inset-0 bg-gradient-to-r from-ink via-ink/55 to-transparent" />

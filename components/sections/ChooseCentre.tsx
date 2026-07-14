@@ -50,8 +50,7 @@ const CENTER_OPTIONS: CenterOption[] = [
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=ABW+Elegance+Tower+Jasola+New+Delhi",
     highlights: ["COB & SMD Walls", "CMS Demo", "Meeting Room"],
-    image: "/images/orion-booth.jpg",
-    video: "/videos/delhi-experience-centre.mp4",
+    image: "/images/delhi-experience-centre.png",
   },
 ];
 

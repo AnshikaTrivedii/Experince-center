@@ -214,8 +214,8 @@ export const GALLERY_ITEMS: GalleryItem[] = [
   },
   {
     id: 4,
-    src: "https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?auto=format&fit=crop&w=1200&q=80",
-    title: "Stadium Grade Outdoor",
+    src: "/gallery/orion-experience-center.png",
+    title: "Orion Experience Center",
     span: "big",
     type: "photo",
   },
