@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 /**
- * Reveals a string word-by-word as it scrolls into view.
+ * Fades a string in word-by-word (no overflow clipping).
  */
 export function TextReveal({
   text,
@@ -28,26 +28,24 @@ export function TextReveal({
       className={cn("inline", className)}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once, amount: 0.4 }}
+      viewport={{ once, amount: 0.2 }}
       transition={{ staggerChildren: stagger, delayChildren: delay }}
     >
       {words.map((word, i) => (
-        <span key={i} className="inline-block overflow-hidden align-bottom">
-          <motion.span
-            className={cn("inline-block", wordClassName)}
-            variants={{
-              hidden: { y: "110%", opacity: 0 },
-              visible: {
-                y: "0%",
-                opacity: 1,
-                transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
-              },
-            }}
-          >
-            {word}
-            {i < words.length - 1 ? "\u00A0" : ""}
-          </motion.span>
-        </span>
+        <motion.span
+          key={i}
+          className={cn("mr-[0.25em] inline-block", wordClassName)}
+          variants={{
+            hidden: { opacity: 0, y: 12 },
+            visible: {
+              opacity: 1,
+              y: 0,
+              transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] },
+            },
+          }}
+        >
+          {word}
+        </motion.span>
       ))}
     </motion.span>
   );

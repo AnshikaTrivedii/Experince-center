@@ -1,35 +1,33 @@
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
+import { BookingUiProvider } from "@/components/providers/BookingUiProvider";
 import { Hero } from "@/components/sections/Hero";
-import { ImmersiveIntro } from "@/components/sections/ImmersiveIntro";
 import { WhyVisit } from "@/components/sections/WhyVisit";
-import { ExperienceCenters } from "@/components/sections/ExperienceCenters";
-import { Gallery } from "@/components/sections/Gallery";
-import { JourneyTimeline } from "@/components/sections/JourneyTimeline";
-import { Industries } from "@/components/sections/Industries";
-import { Testimonials } from "@/components/sections/Testimonials";
-import { Statistics } from "@/components/sections/Statistics";
-import { BookVisit } from "@/components/sections/BookVisit";
-import { Faq } from "@/components/sections/Faq";
+import { OacBenefits } from "@/components/sections/OacBenefits";
+import { OacVipPrivileges } from "@/components/sections/OacVipPrivileges";
+import { ChooseCentre } from "@/components/sections/ChooseCentre";
+import { ReserveVisit } from "@/components/sections/ReserveVisit";
+import { FinalCta } from "@/components/sections/FinalCta";
 
 export default function Home() {
   return (
-    <>
+    <BookingUiProvider>
       <Navbar />
       <main className="relative z-10">
+        {/* —— Page 1: OAC 2026 Invitation —— */}
         <Hero />
-        <ImmersiveIntro />
         <WhyVisit />
-        <ExperienceCenters />
-        <Gallery />
-        <JourneyTimeline />
-        <Industries />
-        <Testimonials />
-        <Statistics />
-        <BookVisit />
-        <Faq />
+        <OacBenefits />
+
+        {/* —— Page 2: Privileges + Reserve —— */}
+        <OacVipPrivileges />
+        <ChooseCentre />
+        <ReserveVisit />
+
+        {/* —— Page 3: Closing offer —— */}
+        <FinalCta />
       </main>
       <Footer />
-    </>
+    </BookingUiProvider>
   );
 }

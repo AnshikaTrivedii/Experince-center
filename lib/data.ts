@@ -22,17 +22,42 @@ import {
 /*  Navigation                                                                */
 /* -------------------------------------------------------------------------- */
 export const NAV_LINKS = [
-  { label: "Experience", href: "#intro" },
   { label: "Why Visit", href: "#why" },
+  { label: "Benefits", href: "#benefits" },
+  { label: "Privileges", href: "#privileges" },
   { label: "Centers", href: "#centers" },
-  { label: "Gallery", href: "#gallery" },
-  { label: "Journey", href: "#journey" },
-  { label: "Industries", href: "#industries" },
-  { label: "FAQ", href: "#faq" },
+  { label: "Reserve", href: "#book" },
 ] as const;
 
 /* -------------------------------------------------------------------------- */
-/*  Section 3 — Why Visit                                                      */
+/*  Page 1 — OAC 2026                                                          */
+/* -------------------------------------------------------------------------- */
+export const OAC_WHY_VISIT = [
+  "Experience our latest LED display technologies live",
+  "Get expert recommendations for your project",
+  "Explore real-world installations and product demos",
+] as const;
+
+export const OAC_BENEFITS = [
+  "Site Survey",
+  "LED Consultation",
+  "3D Mockup",
+  "Installation Layout",
+  "Project Feasibility Report",
+] as const;
+
+/* -------------------------------------------------------------------------- */
+/*  Page 2 — OAC VIP + registration                                            */
+/* -------------------------------------------------------------------------- */
+export const OAC_VIP_PRIVILEGES = [
+  "VIP Experience Centre Tour",
+  "Priority Delivery",
+  "Additional 1-Year Warranty",
+  "Exclusive OAC Pricing",
+] as const;
+
+/* -------------------------------------------------------------------------- */
+/*  Extended Why Visit (deeper experience)                                     */
 /* -------------------------------------------------------------------------- */
 export interface Feature {
   icon: IconType;
@@ -422,7 +447,7 @@ export const BOOKING_BENEFITS = [
   "Same-day tailored quotation",
 ];
 
-export const EXPERIENCE_CENTER_OPTIONS = ["Delhi NCR", "Mumbai"];
+export const EXPERIENCE_CENTER_OPTIONS = ["Mumbai", "Delhi NCR"];
 export const TIME_SLOTS = [
   "10:00 AM – 12:00 PM",
   "12:00 PM – 2:00 PM",

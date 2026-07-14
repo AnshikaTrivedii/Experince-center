@@ -23,34 +23,35 @@ const siteUrl = "https://orion-led.com";
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Orion LED Experience Centers | Experience LED Like Never Before",
+    default:
+      "Welcome OAC 2026 Visitors | Orion LED Experience Centres — Mumbai & Delhi",
     template: "%s | Orion LED",
   },
   description:
-    "Don't buy an LED display from a catalogue — experience it in real life. Book a visit to Orion LED's Delhi & Mumbai Experience Centers for live demos, pixel-pitch comparisons and expert consultation.",
+    "An exclusive invitation from Orion LED for OAC 2026 visitors. Experience premium LED displays at our Mumbai or Delhi Experience Centre and unlock FREE site survey, consultation, 3D mockup, installation layout and feasibility report.",
   keywords: [
-    "LED display experience center",
+    "OAC 2026",
     "Orion LED",
-    "LED wall demo Delhi",
-    "LED screen Mumbai",
-    "DOOH",
-    "fine pitch LED",
-    "book LED demo",
+    "Experience Centre Mumbai",
+    "Experience Centre Delhi",
+    "LED display demo",
+    "book LED visit",
+    "FREE LED consultation",
   ],
   authors: [{ name: "Orion LED" }],
   openGraph: {
     type: "website",
     url: siteUrl,
-    title: "Orion LED Experience Centers | Experience LED Like Never Before",
+    title: "Welcome, OAC 2026 Visitors! | Orion LED Experience Centres",
     description:
-      "Book a visit to Orion LED's immersive Experience Centers in Delhi & Mumbai. See it. Feel it. Then invest.",
+      "Register your visit and unlock exclusive OAC privileges for your next LED project — Mumbai or Delhi.",
     siteName: "Orion LED",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Orion LED Experience Centers",
+    title: "OAC 2026 · Orion LED Experience Centres",
     description:
-      "Experience LED like never before. Book your visit to Delhi or Mumbai.",
+      "Book your visit to Mumbai or Delhi and unlock exclusive OAC benefits.",
   },
   robots: { index: true, follow: true },
 };

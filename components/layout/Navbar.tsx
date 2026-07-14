@@ -58,7 +58,7 @@ export function Navbar() {
           <div className="flex items-center gap-2">
             <MagneticButton className="hidden sm:inline-flex">
               <GlowButton size="sm" onClick={() => scrollTo("#book")}>
-                Book a Visit
+                Reserve My Visit
               </GlowButton>
             </MagneticButton>
             <button
@@ -112,7 +112,7 @@ export function Navbar() {
                     scrollTo("#book");
                   }}
                 >
-                  Book a Visit
+                  Reserve My Visit
                 </GlowButton>
               </div>
             </motion.div>

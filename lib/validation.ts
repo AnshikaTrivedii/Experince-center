@@ -5,13 +5,7 @@ export interface BookingFormValues {
   phone: string;
   city: string;
   center: string;
-  date: string;
-  time: string;
-  purpose: string;
-  projectType: string;
-  screenSize: string;
-  message: string;
-  contactMethod: string;
+  timeline: string;
 }
 
 export type BookingErrors = Partial<Record<keyof BookingFormValues, string>>;
@@ -28,13 +22,11 @@ export function validateBooking(values: BookingFormValues): BookingErrors {
   if (!values.email.trim()) errors.email = "Email is required";
   else if (!emailRegex.test(values.email)) errors.email = "Enter a valid email";
 
-  if (!values.phone.trim()) errors.phone = "Phone is required";
+  if (!values.phone.trim()) errors.phone = "Mobile number is required";
   else if (!phoneRegex.test(values.phone))
-    errors.phone = "Enter a valid phone number";
+    errors.phone = "Enter a valid mobile number";
 
-  if (!values.center) errors.center = "Select a center";
-  if (!values.date) errors.date = "Pick a date";
-  if (!values.time) errors.time = "Pick a time slot";
+  if (!values.center) errors.center = "Select a preferred experience centre";
 
   return errors;
 }
@@ -46,11 +38,13 @@ export const initialBookingValues: BookingFormValues = {
   phone: "",
   city: "",
   center: "",
-  date: "",
-  time: "",
-  purpose: "",
-  projectType: "",
-  screenSize: "",
-  message: "",
-  contactMethod: "Call",
+  timeline: "",
 };
+
+export const PROJECT_TIMELINES = [
+  "Immediate (0–1 month)",
+  "1–3 months",
+  "3–6 months",
+  "6–12 months",
+  "Just exploring",
+] as const;

@@ -2,12 +2,10 @@
 
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { FiArrowRight, FiPlay } from "react-icons/fi";
+import { FiArrowRight } from "react-icons/fi";
 import { Particles } from "@/components/effects/Particles";
 import { GlowButton } from "@/components/ui/GlowButton";
 import { MagneticButton } from "@/components/common/MagneticButton";
-
-const headline = ["Experience", "LED", "Like", "Never", "Before"];
 
 export function Hero() {
   const ref = useRef<HTMLElement>(null);
@@ -18,7 +16,7 @@ export function Hero() {
 
   const y = useTransform(scrollYProgress, [0, 1], ["0%", "40%"]);
   const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
-  const scale = useTransform(scrollYProgress, [0, 1], [1, 1.15]);
+  const scale = useTransform(scrollYProgress, [0, 1], [1, 1.12]);
 
   return (
     <section
@@ -26,34 +24,21 @@ export function Hero() {
       id="hero"
       className="relative flex min-h-[100svh] items-center justify-center overflow-hidden pt-24"
     >
-      {/* Cinematic LED wall + animated gradient mesh */}
       <motion.div style={{ scale }} className="absolute inset-0 z-0">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=2400&q=80"
-          alt=""
-          className="h-full w-full object-cover opacity-45"
+          src="/images/orion-booth.jpg"
+          alt="Orion LED Experience Centre booth"
+          className="absolute inset-0 h-full w-full object-cover object-center"
         />
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          className="absolute inset-0 h-full w-full object-cover opacity-50 mix-blend-lighten"
-        >
-          <source
-            src="https://cdn.coverr.co/videos/coverr-night-city-traffic-1581/1080p.mp4"
-            type="video/mp4"
-          />
-        </video>
-        <div className="absolute inset-0 bg-gradient-to-b from-ink/50 via-ink/65 to-ink" />
-        <div className="absolute inset-0 animate-gradient-pan bg-[linear-gradient(120deg,rgba(59,130,246,0.22),rgba(168,85,247,0.14),rgba(34,211,238,0.18))] bg-[length:200%_200%] mix-blend-screen" />
-        <div className="absolute inset-0 overflow-hidden opacity-30">
-          <div className="absolute -left-1/4 top-0 h-full w-1/2 -skew-x-12 bg-gradient-to-r from-transparent via-accent-cyan/30 to-transparent animate-[shimmer_6s_linear_infinite]" />
-        </div>
+        {/* Dark cinematic overlays so text stays readable */}
+        <div className="absolute inset-0 bg-ink/35" />
+        <div className="absolute inset-0 bg-gradient-to-b from-ink/60 via-ink/30 to-ink" />
+        <div className="absolute inset-0 bg-gradient-to-r from-ink/25 via-transparent to-ink/25" />
+        <div className="absolute inset-0 animate-gradient-pan bg-[linear-gradient(120deg,rgba(59,130,246,0.12),rgba(168,85,247,0.08),rgba(34,211,238,0.1))] bg-[length:200%_200%] mix-blend-screen" />
       </motion.div>
 
-      <Particles density={70} />
+      <Particles density={50} />
 
       <motion.div
         style={{ y, opacity }}
@@ -63,78 +48,64 @@ export function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-5 py-2 text-xs font-medium uppercase tracking-[0.25em] text-white/70 backdrop-blur"
+          className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-5 py-2 text-xs font-medium uppercase tracking-[0.25em] text-accent-cyan backdrop-blur"
         >
           <span className="h-1.5 w-1.5 animate-pulse-glow rounded-full bg-accent-cyan" />
-          Delhi · Mumbai Experience Centers
+          An Exclusive Invitation from Orion LED
         </motion.span>
 
-        <h1 className="max-w-5xl font-display text-5xl font-semibold leading-[0.95] tracking-tighter text-white sm:text-7xl lg:text-8xl">
-          {headline.map((word, i) => (
-            <span key={word} className="inline-block overflow-hidden pb-2">
-              <motion.span
-                initial={{ y: "110%" }}
-                animate={{ y: "0%" }}
-                transition={{
-                  duration: 0.9,
-                  delay: 0.15 + i * 0.09,
-                  ease: [0.22, 1, 0.36, 1],
-                }}
-                className={
-                  word === "LED"
-                    ? "mr-4 inline-block text-gradient-accent"
-                    : "mr-4 inline-block"
-                }
-              >
-                {word}
-              </motion.span>
-            </span>
-          ))}
-        </h1>
+        <motion.h1
+          initial={{ opacity: 0, y: 28 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+          className="max-w-5xl font-display text-4xl font-semibold leading-[0.98] tracking-tighter text-white sm:text-6xl lg:text-7xl xl:text-8xl"
+        >
+          Welcome,{" "}
+          <span className="text-gradient-accent">OAC 2026</span> Visitors!
+        </motion.h1>
 
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.7 }}
-          className="mt-8 max-w-xl text-lg leading-relaxed text-white/60 sm:text-xl"
+          transition={{ duration: 0.8, delay: 0.65 }}
+          className="mt-8 max-w-2xl text-lg leading-relaxed text-white/70 sm:text-xl"
         >
-          Don&apos;t buy an LED display from a catalogue.
-          <br className="hidden sm:block" />
-          <span className="text-white/85"> Experience it in real life.</span>
+          Experience India&apos;s premium LED display solutions at our{" "}
+          <span className="font-medium text-white">Mumbai</span> or{" "}
+          <span className="font-medium text-white">Delhi Experience Centre</span>.
+        </motion.p>
+
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.8 }}
+          className="mt-4 max-w-xl text-base leading-relaxed text-white/50 sm:text-lg"
+        >
+          Register today and unlock exclusive OAC privileges for your next LED
+          project.
         </motion.p>
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.85 }}
-          className="mt-10 flex flex-col items-center gap-4 sm:flex-row"
+          transition={{ duration: 0.8, delay: 0.95 }}
+          className="mt-10"
         >
           <MagneticButton>
             <GlowButton size="lg" onClick={() => go("#book")}>
-              Book a Visit
+              Reserve My Visit
               <FiArrowRight className="transition-transform group-hover:translate-x-1" />
-            </GlowButton>
-          </MagneticButton>
-          <MagneticButton>
-            <GlowButton
-              size="lg"
-              variant="secondary"
-              onClick={() => go("#centers")}
-            >
-              <FiPlay className="text-accent-cyan" />
-              Explore Centers
             </GlowButton>
           </MagneticButton>
         </motion.div>
       </motion.div>
 
-      {/* scroll indicator */}
       <motion.div
         style={{ opacity }}
         className="absolute bottom-8 left-1/2 z-10 -translate-x-1/2"
       >
         <motion.a
-          href="#intro"
+          href="#why"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.4 }}

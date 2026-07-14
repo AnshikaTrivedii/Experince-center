@@ -49,10 +49,17 @@ export function Footer() {
         <div className="grid gap-12 pb-16 md:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
           <div className="flex flex-col gap-5">
             <Logo size="lg" />
+            <p className="text-sm font-semibold tracking-tight text-white">
+              Exclusive for OAC 2026 Visitors
+            </p>
             <p className="max-w-xs text-sm leading-relaxed text-white/50">
               India&apos;s trusted LED display manufacturer since 2015. From
               highways to hotels, malls to metros — we light up spaces
               nationwide.
+            </p>
+            <p className="max-w-sm text-xs italic leading-relaxed text-white/35">
+              Offer valid for a limited period. Additional 1-Year Warranty and
+              Special OAC Pricing are applicable on qualifying projects.
             </p>
             <div className="flex gap-2.5">
               {SOCIALS.map((s) => (

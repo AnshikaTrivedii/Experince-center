@@ -19,7 +19,7 @@ import { GlowButton } from "@/components/ui/GlowButton";
 
 export function ExperienceCenters() {
   return (
-    <section id="centers" className="relative py-28 sm:py-36">
+    <section id="center-details" className="relative py-28 sm:py-36">
       <div className="container">
         <SectionHeading
           eyebrow="Experience Centers"
