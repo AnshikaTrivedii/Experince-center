@@ -6,6 +6,8 @@ import { FiArrowRight } from "react-icons/fi";
 import { Particles } from "@/components/effects/Particles";
 import { GlowButton } from "@/components/ui/GlowButton";
 import { MagneticButton } from "@/components/common/MagneticButton";
+import { MediaImage } from "@/components/common/MediaImage";
+import { MEDIA } from "@/lib/media";
 
 export function Hero() {
   const ref = useRef<HTMLElement>(null);
@@ -18,6 +20,8 @@ export function Hero() {
   const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
   const scale = useTransform(scrollYProgress, [0, 1], [1, 1.12]);
 
+  const { src, alt } = MEDIA.hero.booth;
+
   return (
     <section
       ref={ref}
@@ -25,17 +29,16 @@ export function Hero() {
       className="relative flex min-h-[100svh] items-center justify-center overflow-hidden pt-24"
     >
       <motion.div style={{ scale }} className="absolute inset-0 z-0">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/images/orion-booth.jpg"
-          alt="Orion LED Experience Centre booth"
-          className="absolute inset-0 h-full w-full object-cover object-center"
+        <MediaImage
+          src={src}
+          alt={alt}
+          fill
+          priority
+          className="scale-105"
         />
-        {/* Dark cinematic overlays so text stays readable */}
-        <div className="absolute inset-0 bg-ink/35" />
-        <div className="absolute inset-0 bg-gradient-to-b from-ink/60 via-ink/30 to-ink" />
-        <div className="absolute inset-0 bg-gradient-to-r from-ink/25 via-transparent to-ink/25" />
-        <div className="absolute inset-0 animate-gradient-pan bg-[linear-gradient(120deg,rgba(59,130,246,0.12),rgba(168,85,247,0.08),rgba(34,211,238,0.1))] bg-[length:200%_200%] mix-blend-screen" />
+        <div className="absolute inset-0 bg-ink/30" />
+        <div className="absolute inset-0 bg-gradient-to-b from-ink/55 via-ink/25 to-ink" />
+        <div className="absolute inset-0 bg-gradient-to-r from-ink/20 via-transparent to-ink/20" />
       </motion.div>
 
       <Particles density={50} />

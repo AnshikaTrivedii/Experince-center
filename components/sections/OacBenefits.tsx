@@ -14,7 +14,8 @@ import {
 import type { IconType } from "react-icons";
 import { GlowButton } from "@/components/ui/GlowButton";
 import { MagneticButton } from "@/components/common/MagneticButton";
-import { TiltCard } from "@/components/common/TiltCard";
+import { MediaImage } from "@/components/common/MediaImage";
+import { MEDIA } from "@/lib/media";
 import { cn } from "@/lib/utils";
 
 const BENEFITS: {
@@ -22,36 +23,42 @@ const BENEFITS: {
   title: string;
   blurb: string;
   span: string;
+  image: { src: string; alt: string };
 }[] = [
   {
     icon: FiMap,
     title: "Site Survey",
     blurb: "On-ground assessment of your space, mounting & viewing distance.",
     span: "md:col-span-2 md:row-span-2",
+    image: MEDIA.benefits.siteSurvey,
   },
   {
     icon: FiMessageCircle,
     title: "LED Consultation",
     blurb: "Pixel pitch & series matched to your use-case.",
     span: "md:col-span-1",
+    image: MEDIA.benefits.ledConsultation,
   },
   {
     icon: FiBox,
     title: "3D Mockup",
     blurb: "Visualize the wall in your environment.",
     span: "md:col-span-1",
+    image: MEDIA.benefits.mockup3d,
   },
   {
     icon: FiLayout,
     title: "Installation Layout",
     blurb: "Cabinet map & power plan, ready for site teams.",
     span: "md:col-span-1",
+    image: MEDIA.benefits.installationLayout,
   },
   {
     icon: FiFileText,
     title: "Project Feasibility Report",
     blurb: "Clear go / no-go insights with timeline & budget cues.",
     span: "md:col-span-2",
+    image: MEDIA.benefits.feasibilityReport,
   },
 ];
 
@@ -123,81 +130,92 @@ export function OacBenefits() {
           </motion.div>
         </div>
 
-        {/* Bento grid */}
-        <div className="perspective mx-auto mt-16 grid max-w-6xl auto-rows-[minmax(160px,auto)] grid-cols-1 gap-4 md:grid-cols-3 md:gap-5">
+        {/* Image-led bento — sharp media + solid text panels */}
+        <div className="mx-auto mt-16 grid max-w-6xl auto-rows-[minmax(auto,auto)] grid-cols-1 gap-4 md:grid-cols-3 md:gap-5">
           {BENEFITS.map((benefit, i) => {
             const Icon = benefit.icon;
             const featured = benefit.span.includes("row-span-2");
             return (
-              <motion.div
+              <motion.article
                 key={benefit.title}
                 initial={{ opacity: 0, y: 48 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.3 }}
+                viewport={{ once: true, amount: 0.25 }}
                 transition={{
                   duration: 0.65,
                   delay: i * 0.08,
                   ease: [0.22, 1, 0.36, 1],
                 }}
-                className={cn("group", benefit.span)}
+                className={cn(
+                  "group flex flex-col overflow-hidden rounded-[1.75rem] border border-white/10 bg-[#0b0f16] transition-all duration-500 hover:-translate-y-1 hover:border-accent-cyan/40 hover:shadow-glow",
+                  benefit.span,
+                  featured && "md:min-h-[420px]"
+                )}
               >
-                <TiltCard
-                  intensity={featured ? 8 : 6}
+                {/* Meta row */}
+                <div className="flex items-start justify-between gap-3 px-5 pt-5 sm:px-6 sm:pt-6">
+                  <span
+                    className={cn(
+                      "grid place-items-center rounded-2xl border border-white/10 bg-gradient-to-br from-accent-cyan/25 to-accent-purple/10 text-accent-cyan transition-transform duration-500 group-hover:scale-105",
+                      featured ? "h-14 w-14" : "h-11 w-11"
+                    )}
+                  >
+                    <Icon size={featured ? 24 : 18} />
+                  </span>
+                  <span className="rounded-full border border-accent-cyan/30 bg-accent-cyan/10 px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.22em] text-accent-cyan">
+                    Free
+                  </span>
+                </div>
+
+                {/* Sharp framed image — not a faded background */}
+                <div
                   className={cn(
-                    "relative h-full overflow-hidden rounded-[1.75rem] border border-white/10 bg-gradient-to-br from-white/[0.08] via-white/[0.03] to-transparent p-6 transition-all duration-500 sm:p-7",
-                    "group-hover:-translate-y-1 group-hover:border-accent-cyan/40 group-hover:shadow-glow",
-                    featured && "min-h-[280px] sm:min-h-[340px]"
+                    "relative mx-5 mt-4 overflow-hidden rounded-2xl border border-white/10 bg-black sm:mx-6",
+                    featured ? "flex-1" : ""
                   )}
                 >
                   <div
-                    aria-hidden
-                    className="pointer-events-none absolute -right-20 -top-20 h-56 w-56 rounded-full bg-accent-cyan/20 opacity-0 blur-3xl transition-opacity duration-700 group-hover:opacity-100"
-                  />
-
-                  <div
                     className={cn(
-                      "relative flex h-full flex-col [transform:translateZ(36px)]",
-                      featured && "justify-between"
+                      "relative",
+                      featured ? "aspect-[16/11] h-full min-h-[200px] md:aspect-auto md:min-h-[220px]" : "aspect-[16/10]"
                     )}
                   >
-                    <div className="flex items-start justify-between gap-3">
-                      <span
-                        className={cn(
-                          "grid place-items-center rounded-2xl border border-white/10 bg-gradient-to-br from-accent-cyan/25 to-accent-purple/10 text-accent-cyan transition-transform duration-500 group-hover:scale-110",
-                          featured ? "h-16 w-16" : "h-12 w-12"
-                        )}
-                      >
-                        <Icon size={featured ? 28 : 20} />
-                      </span>
-                      <span className="rounded-full border border-accent-cyan/30 bg-accent-cyan/10 px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.22em] text-accent-cyan">
-                        Free
-                      </span>
-                    </div>
-
-                    <div className={cn(featured ? "mt-auto pt-10" : "mt-6")}>
-                      <p className="mb-2 font-mono text-[11px] tracking-[0.2em] text-white/30">
-                        0{i + 1}
-                      </p>
-                      <h3
-                        className={cn(
-                          "font-display font-semibold tracking-tight text-white",
-                          featured ? "text-3xl sm:text-4xl" : "text-xl"
-                        )}
-                      >
-                        {benefit.title}
-                      </h3>
-                      <p
-                        className={cn(
-                          "mt-2 leading-relaxed text-white/50",
-                          featured ? "max-w-sm text-base" : "text-sm"
-                        )}
-                      >
-                        {benefit.blurb}
-                      </p>
-                    </div>
+                    <MediaImage
+                      src={benefit.image.src}
+                      alt={benefit.image.alt}
+                      fill
+                      sizes={
+                        featured
+                          ? "(max-width: 768px) 100vw, 66vw"
+                          : "(max-width: 768px) 100vw, 33vw"
+                      }
+                    />
                   </div>
-                </TiltCard>
-              </motion.div>
+                </div>
+
+                {/* Text on solid panel */}
+                <div className="flex flex-col px-5 pb-5 pt-4 sm:px-6 sm:pb-6 sm:pt-5">
+                  <p className="mb-1.5 font-mono text-[11px] tracking-[0.2em] text-white/30">
+                    0{i + 1}
+                  </p>
+                  <h3
+                    className={cn(
+                      "font-display font-semibold tracking-tight text-white",
+                      featured ? "text-2xl sm:text-3xl" : "text-xl"
+                    )}
+                  >
+                    {benefit.title}
+                  </h3>
+                  <p
+                    className={cn(
+                      "mt-2 leading-relaxed text-white/55",
+                      featured ? "max-w-md text-sm sm:text-base" : "text-sm"
+                    )}
+                  >
+                    {benefit.blurb}
+                  </p>
+                </div>
+              </motion.article>
             );
           })}
         </div>

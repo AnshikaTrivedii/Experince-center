@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { motion } from "framer-motion";
 import {
   FiMapPin,
@@ -10,7 +9,9 @@ import {
   FiNavigation,
 } from "react-icons/fi";
 import { SectionHeading } from "@/components/common/SectionHeading";
+import { MediaImage } from "@/components/common/MediaImage";
 import { useBookingUi } from "@/components/providers/BookingUiProvider";
+import { MEDIA } from "@/lib/media";
 import { cn } from "@/lib/utils";
 
 type CenterOption = {
@@ -22,8 +23,8 @@ type CenterOption = {
   hours: string;
   mapUrl: string;
   highlights: string[];
-  image: string;
-  video?: string;
+  image: { src: string; alt: string };
+  video?: { src: string; type: "video/mp4" };
 };
 
 const CENTER_OPTIONS: CenterOption[] = [
@@ -37,8 +38,7 @@ const CENTER_OPTIONS: CenterOption[] = [
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=Bandra+Kurla+Complex+Mumbai",
     highlights: ["Live Demo Wall", "VIP Tour", "Consultation"],
-    image:
-      "https://images.unsplash.com/photo-1519501025264-65ba15a82390?auto=format&fit=crop&w=1600&q=80",
+    image: MEDIA.centres.mumbai,
   },
   {
     id: "delhi",
@@ -50,7 +50,8 @@ const CENTER_OPTIONS: CenterOption[] = [
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=ABW+Elegance+Tower+Jasola+New+Delhi",
     highlights: ["COB & SMD Walls", "CMS Demo", "Meeting Room"],
-    image: "/images/delhi-experience-centre.png",
+    image: MEDIA.centres.delhi.poster,
+    video: MEDIA.centres.delhi.video,
   },
 ];
 
@@ -94,7 +95,6 @@ export function ChooseCentre() {
                     : "border-white/10 hover:border-white/20"
                 )}
               >
-                {/* Clean media frame — dominant height */}
                 <div className="relative shrink-0 overflow-hidden bg-black">
                   <div
                     className={cn(
@@ -111,26 +111,18 @@ export function ChooseCentre() {
                         loop
                         playsInline
                         controls={false}
-                        poster={center.image}
+                        poster={center.image.src}
                         className="absolute inset-0 h-full w-full object-cover object-center"
                       >
-                        <source src={center.video} type="video/mp4" />
+                        <source src={center.video.src} type={center.video.type} />
                       </video>
-                    ) : center.image.startsWith("/") ? (
-                      // eslint-disable-next-line @next/next/no-img-element
-                      <img
-                        src={center.image}
-                        alt={`${center.label} Experience Centre`}
-                        className="absolute inset-0 h-full w-full object-cover"
-                      />
                     ) : (
-                      <Image
-                        src={center.image}
-                        alt={`${center.label} Experience Centre`}
+                      <MediaImage
+                        src={center.image.src}
+                        alt={center.image.alt}
                         fill
-                        sizes="(max-width: 1024px) 100vw, 50vw"
-                        className="object-cover"
                         priority={i === 0}
+                        sizes="(max-width: 1024px) 100vw, 50vw"
                       />
                     )}
                   </div>
@@ -142,13 +134,12 @@ export function ChooseCentre() {
                     </span>
                     {center.video && (
                       <span className="rounded-full bg-black/55 px-2.5 py-1 text-[10px] font-medium uppercase tracking-[0.12em] text-white/90 backdrop-blur-md">
-                        Video
+                        Video tour
                       </span>
                     )}
                   </div>
                 </div>
 
-                {/* Compact info panel */}
                 <button
                   type="button"
                   onClick={() => setSelectedCenter(center.formValue)}
