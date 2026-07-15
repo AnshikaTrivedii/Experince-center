@@ -1,14 +1,15 @@
 "use client";
 
-import { useRef, useState, type ReactNode } from "react";
-import { motion } from "framer-motion";
+import { useRef, type ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
+/**
+ * Magnetic hover — DOM transforms only (no React re-renders per mousemove).
+ */
 export function MagneticButton({
   children,
   className,
-  strength = 0.35,
-  as = "div",
+  strength = 0.28,
 }: {
   children: ReactNode;
   className?: string;
@@ -16,7 +17,6 @@ export function MagneticButton({
   as?: "div" | "span";
 }) {
   const ref = useRef<HTMLDivElement>(null);
-  const [pos, setPos] = useState({ x: 0, y: 0 });
 
   const handleMove = (e: React.MouseEvent) => {
     const el = ref.current;
@@ -24,23 +24,26 @@ export function MagneticButton({
     const rect = el.getBoundingClientRect();
     const x = (e.clientX - (rect.left + rect.width / 2)) * strength;
     const y = (e.clientY - (rect.top + rect.height / 2)) * strength;
-    setPos({ x, y });
+    el.style.transform = `translate3d(${x}px, ${y}px, 0)`;
   };
 
-  const reset = () => setPos({ x: 0, y: 0 });
-
-  const Comp = motion[as];
+  const reset = () => {
+    const el = ref.current;
+    if (!el) return;
+    el.style.transform = "translate3d(0, 0, 0)";
+  };
 
   return (
-    <Comp
+    <div
       ref={ref}
       onMouseMove={handleMove}
       onMouseLeave={reset}
-      animate={{ x: pos.x, y: pos.y }}
-      transition={{ type: "spring", stiffness: 220, damping: 18, mass: 0.4 }}
-      className={cn("inline-flex", className)}
+      className={cn(
+        "inline-flex transition-transform duration-200 ease-out will-change-transform",
+        className
+      )}
     >
       {children}
-    </Comp>
+    </div>
   );
 }

@@ -32,7 +32,7 @@ export function FinalCta() {
               <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(34,211,238,0.08),transparent_60%)]" />
 
               <p className="relative mb-5 text-xs font-medium uppercase tracking-[0.28em] text-accent-cyan">
-                Page 03 · Closing Offer
+                Closing Offer
               </p>
 
               <h2 className="relative font-display text-4xl font-semibold leading-[1.05] tracking-tight text-white sm:text-5xl md:text-[3.25rem]">

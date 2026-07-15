@@ -55,7 +55,7 @@ export function ReserveVisit() {
               <div>
                 <SectionHeading
                   align="left"
-                  eyebrow="Page 02 · Registration"
+                  eyebrow="Registration"
                   title={
                     <>
                       Reserve Your{" "}

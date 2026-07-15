@@ -1,7 +1,6 @@
 "use client";
 
-import { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import { FiMonitor, FiUsers, FiAperture, FiArrowUpRight } from "react-icons/fi";
 import type { IconType } from "react-icons";
 import { MediaImage } from "@/components/common/MediaImage";
@@ -43,19 +42,8 @@ const WHY_ITEMS: {
 ];
 
 export function WhyVisit() {
-  const ref = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start end", "end start"],
-  });
-  const stripY = useTransform(scrollYProgress, [0, 1], ["0%", "12%"]);
-
   return (
-    <section
-      ref={ref}
-      id="why"
-      className="relative overflow-hidden py-32 sm:py-40"
-    >
+    <section id="why" className="relative overflow-hidden py-32 sm:py-40">
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(34,211,238,0.12),transparent_55%)]"
@@ -70,7 +58,7 @@ export function WhyVisit() {
             className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-4 py-1.5 text-xs font-medium uppercase tracking-[0.28em] text-accent-cyan"
           >
             <span className="h-1.5 w-1.5 animate-pulse-glow rounded-full bg-accent-cyan" />
-            Page 01 · OAC 2026
+            OAC 2026
           </motion.span>
 
           <motion.h2
@@ -96,7 +84,7 @@ export function WhyVisit() {
           </motion.p>
         </div>
 
-        <div className="mt-16 grid gap-5 md:grid-cols-3 md:gap-6">
+        <div className="mt-16 grid gap-5 md:grid-cols-3 md:gap-6 md:items-start">
           {WHY_ITEMS.map((item, i) => {
             const Icon = item.icon;
             return (
@@ -138,7 +126,7 @@ export function WhyVisit() {
                   <span className="pointer-events-none absolute bottom-3 right-3 h-2 w-2 rounded-full bg-accent-cyan shadow-[0_0_12px_rgba(34,211,238,0.9)]" />
                 </div>
 
-                <div className="relative flex flex-1 flex-col px-5 pb-5 pt-5 sm:px-6 sm:pb-6">
+                <div className="relative flex flex-col px-5 pb-5 pt-5 sm:px-6 sm:pb-6">
                   <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.28em] text-accent-cyan">
                     Reason {item.number}
                   </p>
@@ -149,7 +137,7 @@ export function WhyVisit() {
                     {item.detail}
                   </p>
 
-                  <div className="mt-auto flex items-end justify-between pt-5">
+                  <div className="mt-5 flex items-end justify-between">
                     <div
                       className={cn(
                         "h-px w-10 bg-gradient-to-r transition-all duration-500 group-hover:w-20",
@@ -167,7 +155,6 @@ export function WhyVisit() {
         </div>
 
         <motion.div
-          style={{ y: stripY }}
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}

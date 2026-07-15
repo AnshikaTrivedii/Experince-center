@@ -41,7 +41,7 @@ export function Hero() {
         <div className="absolute inset-0 bg-gradient-to-r from-ink/20 via-transparent to-ink/20" />
       </motion.div>
 
-      <Particles density={50} />
+      <Particles density={18} />
 
       <motion.div
         style={{ y, opacity }}
@@ -51,7 +51,7 @@ export function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-5 py-2 text-xs font-medium uppercase tracking-[0.25em] text-accent-cyan backdrop-blur"
+          className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-5 py-2 text-xs font-medium uppercase tracking-[0.25em] text-accent-cyan"
         >
           <span className="h-1.5 w-1.5 animate-pulse-glow rounded-full bg-accent-cyan" />
           An Exclusive Invitation from Orion LED

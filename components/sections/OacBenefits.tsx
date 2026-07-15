@@ -1,7 +1,6 @@
 "use client";
 
-import { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import {
   FiMap,
   FiMessageCircle,
@@ -63,21 +62,12 @@ const BENEFITS: {
 ];
 
 export function OacBenefits() {
-  const ref = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start end", "end start"],
-  });
-  const glowY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
-
   return (
     <section
-      ref={ref}
       id="benefits"
       className="relative overflow-hidden py-32 sm:py-40"
     >
-      <motion.div
-        style={{ y: glowY }}
+      <div
         aria-hidden
         className="pointer-events-none absolute left-1/2 top-0 h-[28rem] w-[40rem] -translate-x-1/2 rounded-full bg-[radial-gradient(circle,rgba(168,85,247,0.2),rgba(34,211,238,0.1),transparent_65%)] blur-3xl"
       />

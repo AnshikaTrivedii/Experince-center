@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import { FiX, FiPlay, FiChevronLeft, FiChevronRight } from "react-icons/fi";
@@ -17,6 +18,7 @@ const spanClasses: Record<GalleryItem["span"], string> = {
 
 export function Gallery() {
   const [active, setActive] = useState<number | null>(null);
+  const [mounted, setMounted] = useState(false);
 
   const open = (index: number) => setActive(index);
   const close = () => setActive(null);
@@ -26,6 +28,104 @@ export function Gallery() {
     setActive((a) =>
       a === null ? a : (a - 1 + GALLERY_ITEMS.length) % GALLERY_ITEMS.length
     );
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (active === null) return;
+
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") close();
+      if (e.key === "ArrowRight") next();
+      if (e.key === "ArrowLeft") prev();
+    };
+
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", onKey);
+
+    return () => {
+      document.body.style.overflow = prevOverflow;
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [active]);
+
+  const lightbox =
+    active !== null ? (
+      <motion.div
+        key="gallery-lightbox"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Gallery image"
+        className="fixed inset-0 z-[200] flex items-center justify-center bg-black/95 p-4"
+        onClick={close}
+      >
+        <button
+          type="button"
+          className="absolute right-5 top-5 z-[210] grid h-11 w-11 place-items-center rounded-full border border-white/15 bg-white/10 text-white transition-colors hover:bg-white/20 hover:text-accent-cyan"
+          onClick={(e) => {
+            e.stopPropagation();
+            close();
+          }}
+          aria-label="Close"
+        >
+          <FiX size={20} />
+        </button>
+
+        <button
+          type="button"
+          className="absolute left-4 top-1/2 z-[210] grid h-12 w-12 -translate-y-1/2 place-items-center rounded-full border border-white/15 bg-white/10 text-white transition-colors hover:bg-white/20 hover:text-accent-cyan sm:left-8"
+          onClick={(e) => {
+            e.stopPropagation();
+            prev();
+          }}
+          aria-label="Previous"
+        >
+          <FiChevronLeft size={22} />
+        </button>
+
+        <button
+          type="button"
+          className="absolute right-4 top-1/2 z-[210] grid h-12 w-12 -translate-y-1/2 place-items-center rounded-full border border-white/15 bg-white/10 text-white transition-colors hover:bg-white/20 hover:text-accent-cyan sm:right-8"
+          onClick={(e) => {
+            e.stopPropagation();
+            next();
+          }}
+          aria-label="Next"
+        >
+          <FiChevronRight size={22} />
+        </button>
+
+        <motion.div
+          key={active}
+          initial={{ scale: 0.94, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          exit={{ scale: 0.94, opacity: 0 }}
+          transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+          className="relative aspect-[16/10] w-full max-w-5xl overflow-hidden rounded-2xl"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <Image
+            src={GALLERY_ITEMS[active].src}
+            alt={GALLERY_ITEMS[active].title}
+            fill
+            sizes="100vw"
+            className="object-cover"
+            priority
+          />
+          <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-6">
+            <p className="text-lg font-medium text-white">
+              {GALLERY_ITEMS[active].title}
+            </p>
+          </div>
+        </motion.div>
+      </motion.div>
+    ) : null;
 
   return (
     <section id="gallery" className="relative py-28 sm:py-36">
@@ -45,6 +145,7 @@ export function Gallery() {
           {GALLERY_ITEMS.map((item, i) => (
             <motion.button
               key={item.id}
+              type="button"
               onClick={() => open(i)}
               initial={{ opacity: 0, scale: 0.94 }}
               whileInView={{ opacity: 1, scale: 1 }}
@@ -80,69 +181,11 @@ export function Gallery() {
         </div>
       </div>
 
-      {/* Lightbox */}
-      <AnimatePresence>
-        {active !== null && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[80] flex items-center justify-center bg-black/90 p-4 backdrop-blur-xl"
-            onClick={close}
-          >
-            <button
-              className="absolute right-5 top-5 grid h-11 w-11 place-items-center rounded-full glass text-white transition-colors hover:text-accent-cyan"
-              onClick={close}
-              aria-label="Close"
-            >
-              <FiX size={20} />
-            </button>
-            <button
-              className="absolute left-4 top-1/2 grid h-12 w-12 -translate-y-1/2 place-items-center rounded-full glass text-white transition-colors hover:text-accent-cyan sm:left-8"
-              onClick={(e) => {
-                e.stopPropagation();
-                prev();
-              }}
-              aria-label="Previous"
-            >
-              <FiChevronLeft size={22} />
-            </button>
-            <button
-              className="absolute right-4 top-1/2 grid h-12 w-12 -translate-y-1/2 place-items-center rounded-full glass text-white transition-colors hover:text-accent-cyan sm:right-8"
-              onClick={(e) => {
-                e.stopPropagation();
-                next();
-              }}
-              aria-label="Next"
-            >
-              <FiChevronRight size={22} />
-            </button>
-
-            <motion.div
-              key={active}
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-              className="relative aspect-[16/10] w-full max-w-5xl overflow-hidden rounded-2xl"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <Image
-                src={GALLERY_ITEMS[active].src}
-                alt={GALLERY_ITEMS[active].title}
-                fill
-                sizes="100vw"
-                className="object-cover"
-              />
-              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-6">
-                <p className="text-lg font-medium text-white">
-                  {GALLERY_ITEMS[active].title}
-                </p>
-              </div>
-            </motion.div>
-          </motion.div>
+      {mounted &&
+        createPortal(
+          <AnimatePresence>{lightbox}</AnimatePresence>,
+          document.body
         )}
-      </AnimatePresence>
     </section>
   );
 }

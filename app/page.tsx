@@ -6,6 +6,7 @@ import { WhyVisit } from "@/components/sections/WhyVisit";
 import { OacBenefits } from "@/components/sections/OacBenefits";
 import { OacVipPrivileges } from "@/components/sections/OacVipPrivileges";
 import { ChooseCentre } from "@/components/sections/ChooseCentre";
+import { Gallery } from "@/components/sections/Gallery";
 import { ReserveVisit } from "@/components/sections/ReserveVisit";
 import { FinalCta } from "@/components/sections/FinalCta";
 
@@ -22,6 +23,7 @@ export default function Home() {
         {/* —— Page 2: Privileges + Reserve —— */}
         <OacVipPrivileges />
         <ChooseCentre />
+        <Gallery />
         <ReserveVisit />
 
         {/* —— Page 3: Closing offer —— */}

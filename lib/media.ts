@@ -25,12 +25,12 @@ export const MEDIA = {
       alt: "Orion LED curved and flat display walls showing vivid content at the experience booth",
     },
     expertGuidance: {
-      src: "/images/why-expert-guidance.jpg",
-      alt: "Orion LED specialists presenting display solutions to a client team",
+      src: "/images/orion-team.png",
+      alt: "Orion LED team at the Experience Centre",
     },
     realInstallations: {
-      src: "/images/why-real-installations.jpg",
-      alt: "Large-scale LED screen installation at a live venue",
+      src: "/images/hyderabad-led-scoreboard.png",
+      alt: "Orion LED stadium scoreboard installation in Hyderabad",
     },
     boothStrip: {
       src: "/images/orion-experience-showroom.png",

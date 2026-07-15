@@ -31,12 +31,11 @@ export function Reveal({
   amount?: number;
 }) {
   const variants: Variants = {
-    hidden: { opacity: 0, ...offset[direction], filter: "blur(6px)" },
+    hidden: { opacity: 0, ...offset[direction] },
     visible: {
       opacity: 1,
       x: 0,
       y: 0,
-      filter: "blur(0px)",
       transition: {
         duration,
         delay,

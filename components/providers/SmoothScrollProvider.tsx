@@ -2,9 +2,10 @@
 
 import { useEffect } from "react";
 import Lenis from "lenis";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 
+/**
+ * Lightweight Lenis smooth scroll — no GSAP ticker / ScrollTrigger.
+ */
 export function SmoothScrollProvider({
   children,
 }: {
@@ -16,24 +17,20 @@ export function SmoothScrollProvider({
     ).matches;
     if (prefersReduced) return;
 
-    gsap.registerPlugin(ScrollTrigger);
-
     const lenis = new Lenis({
-      duration: 1.15,
+      duration: 0.9,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothWheel: true,
-      touchMultiplier: 1.6,
+      touchMultiplier: 1.4,
     });
 
-    lenis.on("scroll", ScrollTrigger.update);
-
-    const raf = (time: number) => {
-      lenis.raf(time * 1000);
+    let raf = 0;
+    const loop = (time: number) => {
+      lenis.raf(time);
+      raf = requestAnimationFrame(loop);
     };
-    gsap.ticker.add(raf);
-    gsap.ticker.lagSmoothing(0);
+    raf = requestAnimationFrame(loop);
 
-    // Anchor-link smooth scrolling
     const handleAnchor = (e: Event) => {
       const target = e.target as HTMLElement;
       const anchor = target.closest('a[href^="#"]') as HTMLAnchorElement | null;
@@ -43,14 +40,14 @@ export function SmoothScrollProvider({
       const el = document.querySelector(id);
       if (el) {
         e.preventDefault();
-        lenis.scrollTo(el as HTMLElement, { offset: -80, duration: 1.4 });
+        lenis.scrollTo(el as HTMLElement, { offset: -80, duration: 1.1 });
       }
     };
     document.addEventListener("click", handleAnchor);
 
     return () => {
       document.removeEventListener("click", handleAnchor);
-      gsap.ticker.remove(raf);
+      cancelAnimationFrame(raf);
       lenis.destroy();
     };
   }, []);

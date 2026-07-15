@@ -14,7 +14,7 @@ export function OacVipPrivileges() {
     <section id="privileges" className="relative py-28 sm:py-36">
       <div className="container">
         <SectionHeading
-          eyebrow="Page 02 · OAC Privileges"
+          eyebrow="OAC Privileges"
           title={
             <>
               More reasons to{" "}
