@@ -51,8 +51,14 @@ export const MEDIA = {
 
   centres: {
     mumbai: {
-      src: "/images/mumbai-centre.jpg",
-      alt: "Orion LED Mumbai Experience Centre — live demo wall and booth displays",
+      poster: {
+        src: "/images/mumbai-centre.jpg",
+        alt: "Orion LED Mumbai Experience Centre — live demo wall and booth displays",
+      },
+      video: {
+        src: "/videos/mumbai-office-launch.mp4",
+        type: "video/mp4" as const,
+      },
     },
     delhi: {
       poster: {

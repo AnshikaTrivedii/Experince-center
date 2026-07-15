@@ -38,7 +38,8 @@ const CENTER_OPTIONS: CenterOption[] = [
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=Bandra+Kurla+Complex+Mumbai",
     highlights: ["Live Demo Wall", "VIP Tour", "Consultation"],
-    image: MEDIA.centres.mumbai,
+    image: MEDIA.centres.mumbai.poster,
+    video: MEDIA.centres.mumbai.video,
   },
   {
     id: "delhi",
