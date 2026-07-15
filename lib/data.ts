@@ -189,6 +189,8 @@ export interface GalleryItem {
   title: string;
   span: "tall" | "wide" | "square" | "big";
   type: "photo" | "video";
+  /** When type is video, optional local / remote video URL for lightbox playback */
+  videoSrc?: string;
 }
 
 export const GALLERY_ITEMS: GalleryItem[] = [
@@ -201,10 +203,11 @@ export const GALLERY_ITEMS: GalleryItem[] = [
   },
   {
     id: 2,
-    src: "https://images.unsplash.com/photo-1573164713988-8665fc963095?auto=format&fit=crop&w=1200&q=80",
+    src: "/images/orion-terminal-expo-3-poster.jpg",
     title: "Immersive Control Room",
     span: "wide",
     type: "video",
+    videoSrc: "/videos/orion-terminal-expo-3.mp4",
   },
   {
     id: 3,

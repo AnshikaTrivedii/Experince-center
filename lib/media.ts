@@ -17,12 +17,18 @@ export const MEDIA = {
       src: "/images/hero-booth.jpg",
       alt: "Orion LED Experience Centre booth with curved and flat LED display walls",
     },
+    video: {
+      src: "/videos/oac-2025-recap.mp4",
+      type: "video/mp4" as const,
+      poster: "/images/orion-experience-showroom.jpg",
+      alt: "Orion LED OAC 2025 recap — July 18–19 experience highlights",
+    },
   },
 
   whyVisit: {
     liveTechnology: {
-      src: "/images/why-live-technology.jpg",
-      alt: "Orion LED curved and flat display walls showing vivid content at the experience booth",
+      src: "/images/orion-experience-showroom.jpg",
+      alt: "Orion LED curved and flat display walls at the experience booth",
     },
     expertGuidance: {
       src: "/images/orion-team.png",
@@ -33,8 +39,13 @@ export const MEDIA = {
       alt: "Orion LED stadium scoreboard installation in Hyderabad",
     },
     boothStrip: {
-      src: "/images/orion-experience-showroom.png",
-      alt: "Orion LED Experience Centre showroom with immersive display walls",
+      src: "/images/orion-experience-showroom.jpg",
+      alt: "Orion LED Experience Centre booth showcasing vibrant LED display walls",
+      video: {
+        src: "/videos/orion-terminal-expo.mp4",
+        type: "video/mp4" as const,
+        poster: "/images/orion-terminal-expo-poster.jpg",
+      },
     },
   },
 

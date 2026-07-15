@@ -107,18 +107,42 @@ export function Gallery() {
           animate={{ scale: 1, opacity: 1 }}
           exit={{ scale: 0.94, opacity: 0 }}
           transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-          className="relative aspect-[16/10] w-full max-w-5xl overflow-hidden rounded-2xl"
+          className="relative aspect-[16/10] w-full max-w-5xl overflow-hidden rounded-2xl bg-black"
           onClick={(e) => e.stopPropagation()}
         >
-          <Image
-            src={GALLERY_ITEMS[active].src}
-            alt={GALLERY_ITEMS[active].title}
-            fill
-            sizes="100vw"
-            className="object-cover"
-            priority
-          />
-          <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-6">
+          {GALLERY_ITEMS[active].type === "video" &&
+          GALLERY_ITEMS[active].videoSrc ? (
+            <video
+              key={GALLERY_ITEMS[active].videoSrc}
+              autoPlay
+              controls
+              playsInline
+              poster={GALLERY_ITEMS[active].src}
+              className="absolute inset-0 h-full w-full object-contain"
+            >
+              <source
+                src={GALLERY_ITEMS[active].videoSrc}
+                type="video/mp4"
+              />
+            </video>
+          ) : GALLERY_ITEMS[active].src.startsWith("/") ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={GALLERY_ITEMS[active].src}
+              alt={GALLERY_ITEMS[active].title}
+              className="absolute inset-0 h-full w-full object-cover"
+            />
+          ) : (
+            <Image
+              src={GALLERY_ITEMS[active].src}
+              alt={GALLERY_ITEMS[active].title}
+              fill
+              sizes="100vw"
+              className="object-cover"
+              priority
+            />
+          )}
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-6">
             <p className="text-lg font-medium text-white">
               {GALLERY_ITEMS[active].title}
             </p>
@@ -160,21 +184,32 @@ export function Gallery() {
                 spanClasses[item.span]
               )}
             >
-              <Image
-                src={item.src}
-                alt={item.title}
-                fill
-                sizes="(max-width: 640px) 100vw, 25vw"
-                className="object-cover transition-transform duration-700 ease-out group-hover:scale-110"
-              />
+              {item.src.startsWith("/") ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  src={item.src}
+                  alt={item.title}
+                  className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+                />
+              ) : (
+                <Image
+                  src={item.src}
+                  alt={item.title}
+                  fill
+                  sizes="(max-width: 640px) 100vw, 25vw"
+                  className="object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+                />
+              )}
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent opacity-70 transition-opacity duration-300 group-hover:opacity-90" />
               {item.type === "video" && (
                 <span className="absolute left-1/2 top-1/2 grid h-14 w-14 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full glass-strong text-white transition-transform duration-300 group-hover:scale-110">
                   <FiPlay className="ml-0.5" />
                 </span>
               )}
-              <div className="absolute inset-x-0 bottom-0 translate-y-2 p-4 text-left opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
-                <p className="text-sm font-medium text-white">{item.title}</p>
+              <div className="absolute inset-x-0 bottom-0 p-4 text-left">
+                <p className="text-sm font-medium text-white drop-shadow-md">
+                  {item.title}
+                </p>
               </div>
             </motion.button>
           ))}

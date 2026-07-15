@@ -70,6 +70,26 @@ const config: Config = {
           "0%, 100%": { backgroundPosition: "0% 50%" },
           "50%": { backgroundPosition: "100% 50%" },
         },
+        aurora: {
+          "0%, 100%": { transform: "translate(0%, 0%) scale(1)", opacity: "0.55" },
+          "33%": { transform: "translate(8%, -6%) scale(1.08)", opacity: "0.8" },
+          "66%": { transform: "translate(-6%, 8%) scale(0.95)", opacity: "0.45" },
+        },
+        "shine-sweep": {
+          "0%": { transform: "translateX(-120%) skewX(-18deg)" },
+          "100%": { transform: "translateX(220%) skewX(-18deg)" },
+        },
+        "border-spin": {
+          to: { transform: "rotate(360deg)" },
+        },
+        breathe: {
+          "0%, 100%": { transform: "scale(1)", opacity: "0.5" },
+          "50%": { transform: "scale(1.15)", opacity: "0.85" },
+        },
+        "line-grow": {
+          "0%": { transform: "scaleX(0)", opacity: "0" },
+          "100%": { transform: "scaleX(1)", opacity: "1" },
+        },
       },
       animation: {
         shimmer: "shimmer 3s linear infinite",
@@ -77,6 +97,11 @@ const config: Config = {
         "spin-slow": "spin-slow 18s linear infinite",
         "pulse-glow": "pulse-glow 4s ease-in-out infinite",
         "gradient-pan": "gradient-pan 8s ease infinite",
+        aurora: "aurora 14s ease-in-out infinite",
+        "shine-sweep": "shine-sweep 2.8s ease-in-out infinite",
+        "border-spin": "border-spin 8s linear infinite",
+        breathe: "breathe 5s ease-in-out infinite",
+        "line-grow": "line-grow 1s cubic-bezier(0.22, 1, 0.36, 1) forwards",
       },
     },
   },

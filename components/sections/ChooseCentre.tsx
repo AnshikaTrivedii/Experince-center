@@ -89,11 +89,12 @@ export function ChooseCentre() {
                   ease: [0.22, 1, 0.36, 1],
                 }}
                 className={cn(
-                  "group flex flex-col overflow-hidden rounded-[1.75rem] border transition-all duration-500",
+                  "card-shine group flex flex-col overflow-hidden rounded-[1.75rem] border transition-all duration-500",
                   selected
-                    ? "border-accent-cyan/45 shadow-glow-lg"
-                    : "border-white/10 hover:border-white/20"
+                    ? "border-accent-cyan/50 shadow-glow-lg scale-[1.01]"
+                    : "border-white/10 hover:border-accent-cyan/30 hover:shadow-glow hover:-translate-y-1"
                 )}
+                whileHover={{ y: selected ? 0 : -6 }}
               >
                 <div className="relative shrink-0 overflow-hidden bg-black">
                   <div
@@ -123,9 +124,12 @@ export function ChooseCentre() {
                         fill
                         priority={i === 0}
                         sizes="(max-width: 1024px) 100vw, 50vw"
+                        className="transition-transform duration-700 group-hover:scale-105"
                       />
                     )}
                   </div>
+
+                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
 
                   <div className="pointer-events-none absolute left-3 top-3 flex gap-2">
                     <span className="inline-flex items-center gap-1.5 rounded-full bg-black/55 px-2.5 py-1 text-[10px] font-medium text-white backdrop-blur-md">
