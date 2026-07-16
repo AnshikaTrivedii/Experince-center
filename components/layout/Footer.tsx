@@ -26,15 +26,6 @@ const SOCIALS = [
   { icon: FaXTwitter, href: "#", label: "X" },
 ];
 
-const PRODUCTS = [
-  "Indoor Series",
-  "Outdoor Series",
-  "Rental Series",
-  "Digital Standee",
-  "Flexible Series",
-  "Jumbo Series",
-];
-
 export function Footer() {
   return (
     <footer className="relative overflow-hidden border-t border-white/5 pt-20">
@@ -46,7 +37,7 @@ export function Footer() {
       </div>
 
       <div className="container relative z-10">
-        <div className="grid gap-12 pb-16 md:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
+        <div className="grid gap-12 pb-16 md:grid-cols-2 lg:grid-cols-[1.6fr_1fr_1.2fr]">
           <div className="flex flex-col gap-5">
             <Logo size="lg" />
             <p className="text-sm font-semibold tracking-tight text-white">
@@ -79,14 +70,6 @@ export function Footer() {
             {NAV_LINKS.map((l) => (
               <FooterLink key={l.href} href={l.href}>
                 {l.label}
-              </FooterLink>
-            ))}
-          </FooterCol>
-
-          <FooterCol title="Products">
-            {PRODUCTS.map((p) => (
-              <FooterLink key={p} href="#">
-                {p}
               </FooterLink>
             ))}
           </FooterCol>
