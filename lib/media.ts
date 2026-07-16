@@ -66,7 +66,7 @@ export const MEDIA = {
         alt: "Orion LED Delhi NCR Experience Centre — COB and SMD display showcase",
       },
       video: {
-        src: "/videos/DSC_9394%20(1).mp4",
+        src: "/videos/delhi-experience-centre.mp4",
         type: "video/mp4" as const,
       },
     },
