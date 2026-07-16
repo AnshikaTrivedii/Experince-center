@@ -27,8 +27,8 @@ export const MEDIA = {
 
   whyVisit: {
     liveTechnology: {
-      src: "/images/orion-experience-showroom.jpg",
-      alt: "Orion LED curved and flat display walls at the experience booth",
+      src: "/images/why-live-technology.jpg",
+      alt: "Orion LED exhibition booth with curved and flat LED display walls",
     },
     expertGuidance: {
       src: "/images/orion-team.png",
@@ -98,7 +98,7 @@ export const MEDIA = {
   finalCta: {
     booth: {
       src: "/images/final-cta-booth.jpg",
-      alt: "Orion LED display technology at the experience centre",
+      alt: "Orion LED Experience Centre booth with immersive display walls and seating",
     },
   },
 } as const;

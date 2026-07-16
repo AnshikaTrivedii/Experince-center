@@ -162,12 +162,12 @@ export const EXPERIENCE_CENTERS: ExperienceCenter[] = [
     city: "Mumbai",
     tagline: "West India · Experience Center",
     address:
-      "Bandra Kurla Complex Business District, Bandra East, Mumbai 400051",
+      "Acme Plaza, 310-311, Andheri - Kurla Rd, Vijay Nagar Colony, J B Nagar, Andheri East, Mumbai, Maharashtra 400059",
     phone: "+918826888050",
     hours: "Mon – Sat · 10:00 AM – 7:00 PM",
     image: "/images/mumbai-office-launch-poster.jpg",
     mapUrl:
-      "https://www.google.com/maps/search/?api=1&query=Bandra+Kurla+Complex+Mumbai",
+      "https://www.google.com/maps/search/?api=1&query=Acme+Plaza+Andheri+Kurla+Road+Andheri+East+Mumbai",
     facilities: [
       { icon: LuCircleParking, label: "Parking" },
       { icon: LuCoffee, label: "Coffee Bar" },
@@ -196,14 +196,14 @@ export const GALLERY_ITEMS: GalleryItem[] = [
     id: 1,
     src: "/images/orion-experience-showroom.jpg",
     title: "Fine-pitch COB Wall",
-    span: "tall",
+    span: "square",
     type: "photo",
   },
   {
     id: 2,
     src: "/images/orion-terminal-expo-3-poster.jpg",
     title: "Immersive Control Room",
-    span: "wide",
+    span: "square",
     type: "video",
     videoSrc: "/videos/orion-terminal-expo-3.mp4",
   },
@@ -218,7 +218,7 @@ export const GALLERY_ITEMS: GalleryItem[] = [
     id: 4,
     src: "/gallery/orion-experience-center.png",
     title: "Orion Experience Center",
-    span: "big",
+    span: "square",
     type: "photo",
   },
   {
@@ -232,7 +232,7 @@ export const GALLERY_ITEMS: GalleryItem[] = [
     id: 6,
     src: "/images/mumbai-office-launch-poster.jpg",
     title: "Event Rental LED",
-    span: "wide",
+    span: "square",
     type: "video",
     videoSrc: "/videos/mumbai-office-launch.mp4",
   },
@@ -240,7 +240,7 @@ export const GALLERY_ITEMS: GalleryItem[] = [
     id: 7,
     src: "/images/hyderabad-led-scoreboard.png",
     title: "DOOH Billboard",
-    span: "tall",
+    span: "square",
     type: "photo",
   },
   {

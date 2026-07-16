@@ -5,16 +5,8 @@ import { createPortal } from "react-dom";
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import { FiX, FiPlay, FiChevronLeft, FiChevronRight } from "react-icons/fi";
-import { GALLERY_ITEMS, type GalleryItem } from "@/lib/data";
+import { GALLERY_ITEMS } from "@/lib/data";
 import { SectionHeading } from "@/components/common/SectionHeading";
-import { cn } from "@/lib/utils";
-
-const spanClasses: Record<GalleryItem["span"], string> = {
-  tall: "sm:row-span-2",
-  wide: "sm:col-span-2",
-  square: "",
-  big: "sm:col-span-2 sm:row-span-2",
-};
 
 export function Gallery() {
   const [active, setActive] = useState<number | null>(null);
@@ -165,45 +157,42 @@ export function Gallery() {
           description="Photos and walkthroughs from our centers and installations across India."
         />
 
-        <div className="mt-10 grid auto-rows-[200px] grid-cols-1 gap-4 sm:mt-14 sm:auto-rows-[220px] sm:grid-cols-3 lg:grid-cols-4">
+        <div className="mt-10 grid grid-cols-1 gap-4 sm:mt-14 sm:grid-cols-2 lg:grid-cols-4">
           {GALLERY_ITEMS.map((item, i) => (
             <motion.button
               key={item.id}
               type="button"
               onClick={() => open(i)}
-              initial={{ opacity: 0, scale: 0.94 }}
-              whileInView={{ opacity: 1, scale: 1 }}
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.2 }}
               transition={{
-                duration: 0.6,
-                delay: (i % 4) * 0.06,
+                duration: 0.55,
+                delay: (i % 4) * 0.05,
                 ease: [0.22, 1, 0.36, 1],
               }}
-              className={cn(
-                "group relative overflow-hidden rounded-2xl border border-white/10",
-                spanClasses[item.span]
-              )}
+              className="group relative aspect-[4/3] overflow-hidden rounded-2xl border border-white/10 bg-black"
             >
               {item.src.startsWith("/") ? (
                 // eslint-disable-next-line @next/next/no-img-element
                 <img
                   src={item.src}
                   alt={item.title}
-                  className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+                  className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                 />
               ) : (
                 <Image
                   src={item.src}
                   alt={item.title}
                   fill
-                  sizes="(max-width: 640px) 100vw, 25vw"
-                  className="object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                  className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                 />
               )}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent opacity-70 transition-opacity duration-300 group-hover:opacity-90" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent opacity-80 transition-opacity duration-300 group-hover:opacity-95" />
               {item.type === "video" && (
-                <span className="absolute left-1/2 top-1/2 grid h-14 w-14 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full glass-strong text-white transition-transform duration-300 group-hover:scale-110">
-                  <FiPlay className="ml-0.5" />
+                <span className="absolute left-1/2 top-1/2 grid h-12 w-12 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full border border-white/20 bg-black/45 text-white backdrop-blur-sm transition-transform duration-300 group-hover:scale-110">
+                  <FiPlay className="ml-0.5" size={18} />
                 </span>
               )}
               <div className="absolute inset-x-0 bottom-0 p-4 text-left">

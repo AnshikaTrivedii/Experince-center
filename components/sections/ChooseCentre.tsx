@@ -33,10 +33,11 @@ const CENTER_OPTIONS: CenterOption[] = [
     label: "Mumbai",
     formValue: "Mumbai",
     tagline: "West India Experience Centre",
-    address: "Bandra Kurla Complex, Bandra East, Mumbai 400051",
+    address:
+      "Acme Plaza, 310-311, Andheri - Kurla Rd, Vijay Nagar Colony, J B Nagar, Andheri East, Mumbai, Maharashtra 400059",
     hours: "Mon – Sat · 10:00 AM – 7:00 PM",
     mapUrl:
-      "https://www.google.com/maps/search/?api=1&query=Bandra+Kurla+Complex+Mumbai",
+      "https://www.google.com/maps/search/?api=1&query=Acme+Plaza+Andheri+Kurla+Road+Andheri+East+Mumbai",
     highlights: ["Live Demo Wall", "VIP Tour", "Consultation"],
     image: MEDIA.centres.mumbai.poster,
     video: MEDIA.centres.mumbai.video,

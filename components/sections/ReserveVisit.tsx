@@ -4,13 +4,8 @@ import { useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { FiCheck, FiArrowRight } from "react-icons/fi";
 import { EXPERIENCE_CENTER_OPTIONS } from "@/lib/data";
-import {
-  PROJECT_TIMELINES,
-} from "@/lib/validation";
 import { SectionHeading } from "@/components/common/SectionHeading";
-import { MediaImage } from "@/components/common/MediaImage";
 import { InputField, SelectField } from "@/components/ui/Field";
-import { MEDIA } from "@/lib/media";
 import { GlowButton } from "@/components/ui/GlowButton";
 import { Confetti } from "@/components/effects/Confetti";
 import { useBookingForm } from "@/hooks/useBookingForm";
@@ -41,17 +36,6 @@ export function ReserveVisit() {
 
           <div className="relative grid lg:grid-cols-[0.85fr_1.15fr]">
             <div className="flex flex-col justify-between gap-10 border-b border-white/8 p-8 sm:p-12 lg:border-b-0 lg:border-r">
-              <div className="overflow-hidden rounded-2xl border border-white/10">
-                <div className="relative aspect-[16/10]">
-                  <MediaImage
-                    src={MEDIA.whyVisit.boothStrip.src}
-                    alt={MEDIA.whyVisit.boothStrip.alt}
-                    fill
-                    sizes="(max-width: 1024px) 100vw, 40vw"
-                  />
-                </div>
-              </div>
-
               <div>
                 <SectionHeading
                   align="left"
@@ -155,14 +139,6 @@ export function ReserveVisit() {
                         error={errors.center}
                       />
                     </div>
-
-                    <SelectField
-                      id="timeline"
-                      label="Expected Project Timeline"
-                      options={[...PROJECT_TIMELINES]}
-                      value={values.timeline}
-                      onChange={(e) => setField("timeline", e.target.value)}
-                    />
 
                     <GlowButton
                       type="submit"
