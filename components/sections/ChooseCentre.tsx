@@ -60,7 +60,7 @@ export function ChooseCentre() {
   const { selectedCenter, setSelectedCenter } = useBookingUi();
 
   return (
-    <section id="centers" className="relative overflow-hidden py-28 sm:py-36">
+    <section id="centers" className="relative overflow-hidden py-16 sm:py-24 lg:py-28">
       <div className="pointer-events-none absolute left-1/2 top-1/2 h-[40rem] w-[40rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent-blue/10 blur-[120px]" />
 
       <div className="container relative z-10">
@@ -75,7 +75,7 @@ export function ChooseCentre() {
           description="Pick a city — we’ll confirm your visit and unlock OAC privileges."
         />
 
-        <div className="mx-auto mt-16 grid max-w-6xl gap-6 lg:grid-cols-2">
+        <div className="mx-auto mt-10 grid max-w-6xl gap-6 md:mt-14 lg:grid-cols-2">
           {CENTER_OPTIONS.map((center, i) => {
             const selected = selectedCenter === center.formValue;
             return (

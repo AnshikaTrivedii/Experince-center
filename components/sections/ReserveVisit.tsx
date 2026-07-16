@@ -33,7 +33,7 @@ export function ReserveVisit() {
   };
 
   return (
-    <section id="book" className="relative py-28 sm:py-36">
+    <section id="book" className="relative py-16 sm:py-24 lg:py-28">
       <div className="container">
         <div className="relative overflow-hidden rounded-[2.5rem] glass-strong">
           <div className="pointer-events-none absolute -right-32 -top-32 h-96 w-96 rounded-full bg-accent-purple/20 blur-[120px]" />

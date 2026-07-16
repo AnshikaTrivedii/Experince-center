@@ -152,7 +152,7 @@ export function Gallery() {
     ) : null;
 
   return (
-    <section id="gallery" className="relative py-28 sm:py-36">
+    <section id="gallery" className="relative py-16 sm:py-24 lg:py-28">
       <div className="container">
         <SectionHeading
           eyebrow="Interactive Gallery"
@@ -165,7 +165,7 @@ export function Gallery() {
           description="Photos and walkthroughs from our centers and installations across India."
         />
 
-        <div className="mt-16 grid auto-rows-[220px] grid-cols-1 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+        <div className="mt-10 grid auto-rows-[200px] grid-cols-1 gap-4 sm:mt-14 sm:auto-rows-[220px] sm:grid-cols-3 lg:grid-cols-4">
           {GALLERY_ITEMS.map((item, i) => (
             <motion.button
               key={item.id}

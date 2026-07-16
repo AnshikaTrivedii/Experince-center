@@ -11,7 +11,7 @@ const ease = [0.22, 1, 0.36, 1] as const;
 
 export function FinalCta() {
   return (
-    <section id="final-cta" className="relative py-24 sm:py-32">
+    <section id="final-cta" className="relative py-14 sm:py-20 lg:py-24">
       <div className="container">
         <motion.div
           initial={{ opacity: 0, y: 48 }}

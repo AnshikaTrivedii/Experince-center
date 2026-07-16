@@ -30,9 +30,19 @@ export function Hero() {
     <section
       ref={ref}
       id="hero"
-      className="relative flex min-h-[100svh] items-center justify-center overflow-hidden pt-24"
+      className="relative flex min-h-[85svh] items-center justify-center overflow-hidden pb-10 pt-20 md:min-h-[100svh] md:pb-0 md:pt-24"
     >
-      <motion.div style={{ scale }} className="absolute inset-0 z-0">
+      <motion.div style={{ scale }} className="absolute inset-0 z-0 bg-ink">
+        {/* Soft fill behind letterboxing on tall phones (no second video decode) */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={heroVideo.poster}
+          alt=""
+          aria-hidden
+          className="pointer-events-none absolute inset-0 h-full w-full scale-125 object-cover object-center opacity-60 blur-2xl md:hidden"
+        />
+
+        {/* Main video — full frame on mobile, cinematic cover on desktop */}
         <video
           autoPlay
           muted
@@ -41,14 +51,15 @@ export function Hero() {
           preload="auto"
           poster={heroVideo.poster}
           aria-label={heroVideo.alt}
-          className="absolute inset-0 h-full w-full scale-105 object-cover object-center"
+          className="absolute inset-0 h-full w-full object-contain object-center md:scale-105 md:object-cover"
         >
           <source src={heroVideo.src} type={heroVideo.type} />
         </video>
-        <div className="absolute inset-0 bg-ink/40" />
-        <div className="absolute inset-0 bg-gradient-to-b from-ink/75 via-ink/40 to-ink" />
-        <div className="absolute inset-0 bg-gradient-to-r from-ink/45 via-transparent to-ink/45" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_15%,rgba(5,5,5,0.8)_100%)]" />
+
+        <div className="absolute inset-0 bg-ink/10 md:bg-ink/15" />
+        <div className="absolute inset-0 bg-gradient-to-b from-ink/40 via-ink/5 to-ink/80 md:from-ink/45 md:via-ink/10 md:to-ink/75" />
+        <div className="absolute inset-0 bg-gradient-to-r from-ink/15 via-transparent to-ink/15 md:from-ink/20 md:to-ink/20" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_30%,rgba(5,5,5,0.35)_100%)] md:bg-[radial-gradient(ellipse_at_center,transparent_25%,rgba(5,5,5,0.45)_100%)]" />
       </motion.div>
 
       {/* Cinematic light orbs */}
@@ -74,7 +85,7 @@ export function Hero() {
           initial={{ opacity: 0, y: 24, scale: 0.94 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           transition={{ duration: 0.9, ease }}
-          className="mb-7 inline-flex items-center gap-2 rounded-full border border-accent-cyan/25 bg-accent-cyan/[0.08] px-5 py-2 text-xs font-medium uppercase tracking-[0.25em] text-accent-cyan shadow-[0_0_40px_-12px_rgba(34,211,238,0.8)] backdrop-blur-md"
+          className="mb-5 inline-flex items-center gap-2 rounded-full border border-accent-cyan/25 bg-accent-cyan/[0.08] px-4 py-1.5 text-[10px] font-medium uppercase tracking-[0.22em] text-accent-cyan shadow-[0_0_40px_-12px_rgba(34,211,238,0.8)] backdrop-blur-md sm:mb-7 sm:px-5 sm:py-2 sm:text-xs sm:tracking-[0.25em]"
         >
           <span className="relative flex h-2 w-2">
             <span className="absolute inset-0 animate-ping rounded-full bg-accent-cyan/70" />
@@ -112,7 +123,7 @@ export function Hero() {
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.85, delay: 0.95, ease }}
-          className="mt-8 max-w-2xl text-lg leading-relaxed text-white/70 sm:text-xl"
+          className="mt-5 max-w-2xl text-base leading-relaxed text-white/70 sm:mt-8 sm:text-lg md:text-xl"
         >
           Experience India&apos;s premium LED display solutions at our{" "}
           <span className="font-medium text-white">Mumbai</span> or{" "}
@@ -123,7 +134,7 @@ export function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 1.1, ease }}
-          className="mt-4 max-w-xl text-base leading-relaxed text-white/50 sm:text-lg"
+          className="mt-3 max-w-xl text-sm leading-relaxed text-white/50 sm:mt-4 sm:text-base md:text-lg"
         >
           Register today and unlock exclusive OAC privileges for your next LED
           project.
@@ -133,7 +144,7 @@ export function Hero() {
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.85, delay: 1.25, ease }}
-          className="mt-10 flex flex-wrap items-center justify-center gap-4"
+          className="mt-8 flex flex-wrap items-center justify-center gap-3 sm:mt-10 sm:gap-4"
         >
           <MagneticButton>
             <GlowButton size="lg" onClick={() => go("#book")}>
@@ -159,7 +170,7 @@ export function Hero() {
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 1.5, ease }}
-          className="mt-14 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-[11px] uppercase tracking-[0.22em] text-white/40"
+          className="mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-[10px] uppercase tracking-[0.2em] text-white/40 sm:mt-14 sm:gap-x-8 sm:gap-y-3 sm:text-[11px] sm:tracking-[0.22em]"
         >
           {["Mumbai", "Delhi NCR", "5× Free Benefits"].map((label) => (
             <span key={label} className="inline-flex items-center gap-2">
@@ -172,7 +183,7 @@ export function Hero() {
 
       <motion.div
         style={{ opacity }}
-        className="absolute bottom-8 left-1/2 z-10 -translate-x-1/2"
+        className="absolute bottom-4 left-1/2 z-10 -translate-x-1/2 sm:bottom-8"
       >
         <motion.a
           href="#why"

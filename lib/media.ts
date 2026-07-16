@@ -74,23 +74,23 @@ export const MEDIA = {
 
   benefits: {
     siteSurvey: {
-      src: "/images/benefit-site-survey.jpg",
-      alt: "On-site technician assessing space for LED display mounting and viewing distance",
+      src: "/images/ai-site-survey.png",
+      alt: "On-site LED display site survey and installation planning",
     },
     ledConsultation: {
-      src: "/images/benefit-led-consultation.jpg",
-      alt: "LED specialists consulting with clients on pixel pitch and display series",
+      src: "/images/ai-led-consultation.png",
+      alt: "LED specialists consulting on pixel pitch and display series",
     },
     mockup3d: {
-      src: "/images/benefit-3d-mockup.jpg",
-      alt: "Architectural visualization of an LED wall in a premium interior",
+      src: "/images/ai-3d-mockup.png",
+      alt: "3D LED display mockup visualized in a premium architectural environment",
     },
     installationLayout: {
-      src: "/images/benefit-installation-layout.jpg",
-      alt: "Technical planning documents for LED cabinet map and power layout",
+      src: "/images/ai-installation-layout.png",
+      alt: "LED installation layout with cabinet map and power planning",
     },
     feasibilityReport: {
-      src: "/images/benefit-feasibility-report.jpg",
+      src: "/images/ai-feasibility-report.png",
       alt: "Project feasibility analysis with timeline and budget insights",
     },
   },

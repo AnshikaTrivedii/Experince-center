@@ -11,7 +11,7 @@ const ease = [0.22, 1, 0.36, 1] as const;
 
 export function OacVipPrivileges() {
   return (
-    <section id="privileges" className="relative overflow-hidden py-28 sm:py-36">
+    <section id="privileges" className="relative overflow-hidden py-16 sm:py-24 lg:py-28">
       <div
         aria-hidden
         className="pointer-events-none absolute left-1/2 top-0 h-64 w-[36rem] -translate-x-1/2 rounded-full bg-accent-cyan/10 blur-3xl"
@@ -29,7 +29,7 @@ export function OacVipPrivileges() {
           description="Beyond the complimentary package — unlock VIP access reserved for OAC 2026 guests."
         />
 
-        <div className="mt-16 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 md:mt-14 lg:grid-cols-4">
           {OAC_VIP_PRIVILEGES.map((item, i) => {
             const Icon = ICONS[i] ?? FiStar;
             return (

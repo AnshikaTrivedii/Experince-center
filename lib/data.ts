@@ -146,8 +146,7 @@ export const EXPERIENCE_CENTERS: ExperienceCenter[] = [
       "504, 5th Floor, ABW Elegance Tower, Jasola District Centre, New Delhi 110025",
     phone: "+918826888050",
     hours: "Mon – Sat · 10:00 AM – 7:00 PM",
-    image:
-      "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=1600&q=80",
+    image: "/images/delhi-experience-centre.png",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=ABW+Elegance+Tower+Jasola+District+Centre+New+Delhi",
     facilities: [
@@ -166,8 +165,7 @@ export const EXPERIENCE_CENTERS: ExperienceCenter[] = [
       "Bandra Kurla Complex Business District, Bandra East, Mumbai 400051",
     phone: "+918826888050",
     hours: "Mon – Sat · 10:00 AM – 7:00 PM",
-    image:
-      "https://images.unsplash.com/photo-1519501025264-65ba15a82390?auto=format&fit=crop&w=1600&q=80",
+    image: "/images/mumbai-office-launch-poster.jpg",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=Bandra+Kurla+Complex+Mumbai",
     facilities: [
@@ -196,7 +194,7 @@ export interface GalleryItem {
 export const GALLERY_ITEMS: GalleryItem[] = [
   {
     id: 1,
-    src: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=1200&q=80",
+    src: "/images/orion-experience-showroom.jpg",
     title: "Fine-pitch COB Wall",
     span: "tall",
     type: "photo",
@@ -211,7 +209,7 @@ export const GALLERY_ITEMS: GalleryItem[] = [
   },
   {
     id: 3,
-    src: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=1200&q=80",
+    src: "/images/delhi-experience-centre.png",
     title: "Retail Digital Signage",
     span: "square",
     type: "photo",
@@ -225,28 +223,29 @@ export const GALLERY_ITEMS: GalleryItem[] = [
   },
   {
     id: 5,
-    src: "https://images.unsplash.com/photo-1478720568477-152d9b164e26?auto=format&fit=crop&w=1200&q=80",
+    src: "/images/gallery-expo-booth.jpg",
     title: "Curved Experiential",
     span: "square",
     type: "photo",
   },
   {
     id: 6,
-    src: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=1200&q=80",
+    src: "/images/mumbai-office-launch-poster.jpg",
     title: "Event Rental LED",
     span: "wide",
     type: "video",
+    videoSrc: "/videos/mumbai-office-launch.mp4",
   },
   {
     id: 7,
-    src: "https://images.unsplash.com/photo-1519501025264-65ba15a82390?auto=format&fit=crop&w=1200&q=80",
+    src: "/images/hyderabad-led-scoreboard.png",
     title: "DOOH Billboard",
     span: "tall",
     type: "photo",
   },
   {
     id: 8,
-    src: "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80",
+    src: "/images/gallery-expo-wide.jpg",
     title: "Corporate Lobby",
     span: "square",
     type: "photo",

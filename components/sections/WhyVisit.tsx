@@ -45,7 +45,7 @@ const WHY_ITEMS: {
 
 export function WhyVisit() {
   return (
-    <section id="why" className="relative overflow-hidden py-32 sm:py-40">
+    <section id="why" className="relative overflow-hidden py-16 sm:py-24 lg:py-32">
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(34,211,238,0.14),transparent_55%)]"
@@ -91,7 +91,7 @@ export function WhyVisit() {
           </motion.p>
         </div>
 
-        <div className="mt-16 grid gap-5 md:grid-cols-3 md:gap-6 md:items-start">
+        <div className="mt-10 grid gap-5 md:mt-14 md:grid-cols-3 md:gap-6 md:items-start">
           {WHY_ITEMS.map((item, i) => {
             const Icon = item.icon;
             return (
