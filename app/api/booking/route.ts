@@ -14,24 +14,6 @@ function escapeHtml(value: string) {
     .replace(/'/g, "&#39;");
 }
 
-/** Amplify env vars often break `Name <email@x.com>` — support plain email + name. */
-function resolveFromAddress() {
-  const raw = (process.env.BOOKING_FROM_EMAIL || "onboarding@resend.dev").trim();
-  const name = (
-    process.env.BOOKING_FROM_NAME || "Orion Experience Centre"
-  ).trim();
-
-  if (raw.includes("<") && raw.includes(">")) {
-    return raw;
-  }
-
-  if (raw.includes("@")) {
-    return `${name} <${raw}>`;
-  }
-
-  return "Orion Experience Centre <onboarding@resend.dev>";
-}
-
 function buildEmailHtml(body: BookingFormValues, reference: string) {
   const rows: Array<[string, string]> = [
     ["Name", body.name],
@@ -67,6 +49,25 @@ function buildEmailHtml(body: BookingFormValues, reference: string) {
   `;
 }
 
+/** Amplify can mangle angle brackets in env values — normalize From header. */
+function resolveFromEmail() {
+  const raw = (process.env.BOOKING_FROM_EMAIL || "").trim();
+  if (!raw) {
+    return "Orion Experience Centre <onboarding@resend.dev>";
+  }
+  // Already a valid "Name <email>" or bare email
+  if (raw.includes("<") && raw.includes(">")) return raw;
+  if (raw.includes("@") && !raw.includes(" ")) return raw;
+  // e.g. "Orion Experience Centre onboarding@resend.dev" after <> stripped
+  const match = raw.match(/([^\s<>]+@[^\s<>]+)/);
+  if (match) {
+    const email = match[1];
+    const name = raw.replace(email, "").trim() || "Orion Experience Centre";
+    return `${name} <${email}>`;
+  }
+  return raw;
+}
+
 export async function POST(request: Request) {
   try {
     const body = (await request.json()) as BookingFormValues;
@@ -81,12 +82,12 @@ export async function POST(request: Request) {
 
     const apiKey = process.env.RESEND_API_KEY?.trim();
     if (!apiKey) {
-      console.error("RESEND_API_KEY is not configured");
+      console.error("RESEND_API_KEY is not configured at runtime");
       return NextResponse.json(
         {
           ok: false,
           message:
-            "Email service is not configured. Set RESEND_API_KEY in Amplify and redeploy.",
+            "Email service is not configured on Amplify. Set RESEND_API_KEY as a Hosting environment variable (not only Build) and redeploy.",
         },
         { status: 500 }
       );
@@ -95,41 +96,27 @@ export async function POST(request: Request) {
     const toEmail = (
       process.env.BOOKING_TO_EMAIL || "prachi.sharma@orion-led.com"
     ).trim();
-    const fromEmail = resolveFromAddress();
-    const reference = `ORION-${Date.now().toString(36).toUpperCase()}`;
+    const fromEmail = resolveFromEmail();
 
+    const reference = `ORION-${Date.now().toString(36).toUpperCase()}`;
     const resend = new Resend(apiKey);
 
-    let sendResult: Awaited<ReturnType<typeof resend.emails.send>>;
-    try {
-      sendResult = await resend.emails.send({
-        from: fromEmail,
-        to: [toEmail],
-        replyTo: body.email,
-        subject: `New visit request — ${body.name} (${body.center})`,
-        html: buildEmailHtml(body, reference),
-      });
-    } catch (sendErr) {
-      const detail =
-        sendErr instanceof Error ? sendErr.message : "Unknown Resend failure";
-      console.error("Resend threw:", sendErr);
-      return NextResponse.json(
-        {
-          ok: false,
-          message: `Email send failed: ${detail}`,
-        },
-        { status: 502 }
-      );
-    }
+    const { data, error } = await resend.emails.send({
+      from: fromEmail,
+      to: [toEmail],
+      replyTo: body.email,
+      subject: `New visit request — ${body.name} (${body.center})`,
+      html: buildEmailHtml(body, reference),
+    });
 
-    if (sendResult.error) {
-      console.error("Resend error:", sendResult.error);
+    if (error) {
+      console.error("Resend error:", JSON.stringify(error));
       return NextResponse.json(
         {
           ok: false,
           message:
-            sendResult.error.message ||
-            "Failed to send booking email. Verify Resend API key, from address, and recipient.",
+            error.message ||
+            "Failed to send booking email. With onboarding@resend.dev you can only send to your Resend account email until orion-led.com is verified.",
         },
         { status: 502 }
       );
@@ -139,12 +126,14 @@ export async function POST(request: Request) {
       ok: true,
       message: "Booking received",
       reference,
+      emailId: data?.id ?? null,
     });
   } catch (err) {
-    const detail = err instanceof Error ? err.message : "Invalid request";
     console.error("Booking API error:", err);
+    const message =
+      err instanceof Error ? err.message : "Unexpected booking server error";
     return NextResponse.json(
-      { ok: false, message: detail },
+      { ok: false, message },
       { status: 500 }
     );
   }
