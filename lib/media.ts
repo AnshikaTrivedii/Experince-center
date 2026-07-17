@@ -19,6 +19,7 @@ export const MEDIA = {
     },
     video: {
       src: "/videos/oac-2025-recap.mp4",
+      mobileSrc: "/videos/oac-2025-recap-mobile.mp4",
       type: "video/mp4" as const,
       poster: "/images/orion-experience-showroom.jpg",
       alt: "Orion LED OAC 2025 recap — July 18–19 experience highlights",

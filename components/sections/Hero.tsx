@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { FiArrowRight, FiPlay } from "react-icons/fi";
 import { Particles } from "@/components/effects/Particles";
@@ -14,6 +14,10 @@ const headline = ["Welcome,", "OAC 2026", "Visitors!"];
 
 export function Hero() {
   const ref = useRef<HTMLElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [videoReady, setVideoReady] = useState(false);
+  const [isMobile, setIsMobile] = useState(true);
+
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start start", "end start"],
@@ -26,6 +30,31 @@ export function Hero() {
 
   const heroVideo = MEDIA.hero.video;
 
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 767px)");
+    const sync = () => setIsMobile(mq.matches);
+    sync();
+    mq.addEventListener("change", sync);
+    return () => mq.removeEventListener("change", sync);
+  }, []);
+
+  useEffect(() => {
+    const el = videoRef.current;
+    if (!el) return;
+    el.load();
+    const play = () => {
+      el.play().catch(() => {
+        /* autoplay can be blocked; poster stays visible */
+      });
+    };
+    if (el.readyState >= 2) {
+      setVideoReady(true);
+      play();
+    }
+  }, [isMobile]);
+
+  const videoSrc = isMobile ? heroVideo.mobileSrc : heroVideo.src;
+
   return (
     <section
       ref={ref}
@@ -33,27 +62,49 @@ export function Hero() {
       className="relative flex min-h-[85svh] items-center justify-center overflow-hidden pb-10 pt-20 md:min-h-[100svh] md:pb-0 md:pt-24"
     >
       <motion.div style={{ scale }} className="absolute inset-0 z-0 bg-ink">
-        {/* Soft fill behind letterboxing on tall phones (no second video decode) */}
+        {/* Poster first — always visible until video can paint */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={heroVideo.poster}
           alt=""
           aria-hidden
-          className="pointer-events-none absolute inset-0 h-full w-full scale-125 object-cover object-center opacity-60 blur-2xl md:hidden"
+          className={`pointer-events-none absolute inset-0 h-full w-full object-cover object-center transition-opacity duration-700 ${
+            videoReady ? "opacity-0" : "opacity-100"
+          } ${isMobile ? "scale-110 blur-[2px]" : ""}`}
         />
 
-        {/* Main video — full frame on mobile, cinematic cover on desktop */}
+        {/* Soft fill behind letterboxing on tall phones */}
+        {isMobile && (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={heroVideo.poster}
+            alt=""
+            aria-hidden
+            className="pointer-events-none absolute inset-0 h-full w-full scale-125 object-cover object-center opacity-50 blur-2xl"
+          />
+        )}
+
+        {/* Mobile: ~1.7MB clip. Desktop: full recap. Poster shows until ready. */}
         <video
+          ref={videoRef}
+          key={videoSrc}
           autoPlay
           muted
           loop
           playsInline
-          preload="auto"
+          preload={isMobile ? "metadata" : "auto"}
           poster={heroVideo.poster}
           aria-label={heroVideo.alt}
-          className="absolute inset-0 h-full w-full object-contain object-center md:scale-105 md:object-cover"
+          onLoadedData={() => setVideoReady(true)}
+          onCanPlay={() => {
+            setVideoReady(true);
+            videoRef.current?.play().catch(() => undefined);
+          }}
+          className={`absolute inset-0 h-full w-full object-contain object-center transition-opacity duration-700 md:scale-105 md:object-cover ${
+            videoReady ? "opacity-100" : "opacity-0"
+          }`}
         >
-          <source src={heroVideo.src} type={heroVideo.type} />
+          <source src={videoSrc} type={heroVideo.type} />
         </video>
 
         <div className="absolute inset-0 bg-ink/10 md:bg-ink/15" />
