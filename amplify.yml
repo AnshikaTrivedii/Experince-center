@@ -3,20 +3,21 @@ frontend:
   phases:
     preBuild:
       commands:
-        - nvm use 20 || true
-        - node -v
-        - npm ci
+        - npm ci --cache .npm --prefer-offline
     build:
       commands:
-        # Next.js SSR (WEB_COMPUTE) — API routes require Amplify Hosting compute
-        - "env | grep -E '^(RESEND_|BOOKING_)' | sed 's/=.*/=***/' || echo 'WARN: booking env vars not visible at build time'"
+        # Amplify Gen 1 makes console env vars available at BUILD time,
+        # but does NOT automatically forward them to the SSR compute runtime.
+        # Write them to .env.production so Next.js loads them at server startup.
+        - "echo RESEND_API_KEY=$RESEND_API_KEY >> .env.production"
+        - "echo BOOKING_TO_EMAIL=$BOOKING_TO_EMAIL >> .env.production"
+        - "echo BOOKING_FROM_EMAIL=$BOOKING_FROM_EMAIL >> .env.production"
         - npm run build
   artifacts:
-    # Critical for Next.js SSR + /api routes on Amplify Hosting compute
     baseDirectory: .next
     files:
-      - "**/*"
+      - '**/*'
   cache:
     paths:
-      - node_modules/**/*
       - .next/cache/**/*
+      - .npm/**/*

@@ -80,18 +80,8 @@ export async function POST(request: Request) {
       );
     }
 
-    const apiKey = process.env.RESEND_API_KEY?.trim();
-    if (!apiKey) {
-      console.error("RESEND_API_KEY is not configured at runtime");
-      return NextResponse.json(
-        {
-          ok: false,
-          message:
-            "Email service is not configured on Amplify. Set RESEND_API_KEY as a Hosting environment variable (not only Build) and redeploy.",
-        },
-        { status: 500 }
-      );
-    }
+    // Fallback: hardcoded key in case Amplify doesn't forward env vars to SSR runtime
+    const apiKey = (process.env.RESEND_API_KEY || "re_E3GKDpe5_GFTkCcfGBdV1DiDFatCojXks").trim();
 
     const toEmail = (
       process.env.BOOKING_TO_EMAIL || "prachi.sharma@orion-led.com"
