@@ -80,8 +80,14 @@ export async function POST(request: Request) {
       );
     }
 
-    // Fallback: hardcoded key in case Amplify doesn't forward env vars to SSR runtime
-    const apiKey = (process.env.RESEND_API_KEY || "re_E3GKDpe5_GFTkCcfGBdV1DiDFatCojXks").trim();
+    const apiKey = process.env.RESEND_API_KEY?.trim();
+    if (!apiKey) {
+      console.error("RESEND_API_KEY is not set at runtime. Env dump:", Object.keys(process.env).filter(k => k.startsWith("RESEND") || k.startsWith("BOOKING")));
+      return NextResponse.json(
+        { ok: false, message: "Email service is not configured." },
+        { status: 500 }
+      );
+    }
 
     const toEmail = (
       process.env.BOOKING_TO_EMAIL || "prachi.sharma@orion-led.com"
