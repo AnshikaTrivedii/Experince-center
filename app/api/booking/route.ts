@@ -2,7 +2,8 @@ import { NextResponse } from "next/server";
 import { Resend } from "resend";
 import { validateBooking, type BookingFormValues } from "@/lib/validation";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
 
 function escapeHtml(value: string) {
   return value
@@ -11,6 +12,24 @@ function escapeHtml(value: string) {
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;")
     .replace(/'/g, "&#39;");
+}
+
+/** Amplify env vars often break `Name <email@x.com>` — support plain email + name. */
+function resolveFromAddress() {
+  const raw = (process.env.BOOKING_FROM_EMAIL || "onboarding@resend.dev").trim();
+  const name = (
+    process.env.BOOKING_FROM_NAME || "Orion Experience Centre"
+  ).trim();
+
+  if (raw.includes("<") && raw.includes(">")) {
+    return raw;
+  }
+
+  if (raw.includes("@")) {
+    return `${name} <${raw}>`;
+  }
+
+  return "Orion Experience Centre <onboarding@resend.dev>";
 }
 
 function buildEmailHtml(body: BookingFormValues, reference: string) {
@@ -60,34 +79,58 @@ export async function POST(request: Request) {
       );
     }
 
-    if (!process.env.RESEND_API_KEY) {
+    const apiKey = process.env.RESEND_API_KEY?.trim();
+    if (!apiKey) {
       console.error("RESEND_API_KEY is not configured");
       return NextResponse.json(
-        { ok: false, message: "Email service is not configured" },
+        {
+          ok: false,
+          message:
+            "Email service is not configured. Set RESEND_API_KEY in Amplify and redeploy.",
+        },
         { status: 500 }
       );
     }
 
-    const toEmail =
-      process.env.BOOKING_TO_EMAIL || "prachi.sharma@orion-led.com";
-    const fromEmail =
-      process.env.BOOKING_FROM_EMAIL ||
-      "Orion Experience Centre <onboarding@resend.dev>";
-
+    const toEmail = (
+      process.env.BOOKING_TO_EMAIL || "prachi.sharma@orion-led.com"
+    ).trim();
+    const fromEmail = resolveFromAddress();
     const reference = `ORION-${Date.now().toString(36).toUpperCase()}`;
 
-    const { error } = await resend.emails.send({
-      from: fromEmail,
-      to: [toEmail],
-      replyTo: body.email,
-      subject: `New visit request — ${body.name} (${body.center})`,
-      html: buildEmailHtml(body, reference),
-    });
+    const resend = new Resend(apiKey);
 
-    if (error) {
-      console.error("Resend error:", error);
+    let sendResult: Awaited<ReturnType<typeof resend.emails.send>>;
+    try {
+      sendResult = await resend.emails.send({
+        from: fromEmail,
+        to: [toEmail],
+        replyTo: body.email,
+        subject: `New visit request — ${body.name} (${body.center})`,
+        html: buildEmailHtml(body, reference),
+      });
+    } catch (sendErr) {
+      const detail =
+        sendErr instanceof Error ? sendErr.message : "Unknown Resend failure";
+      console.error("Resend threw:", sendErr);
       return NextResponse.json(
-        { ok: false, message: "Failed to send booking email" },
+        {
+          ok: false,
+          message: `Email send failed: ${detail}`,
+        },
+        { status: 502 }
+      );
+    }
+
+    if (sendResult.error) {
+      console.error("Resend error:", sendResult.error);
+      return NextResponse.json(
+        {
+          ok: false,
+          message:
+            sendResult.error.message ||
+            "Failed to send booking email. Verify Resend API key, from address, and recipient.",
+        },
         { status: 502 }
       );
     }
@@ -98,10 +141,11 @@ export async function POST(request: Request) {
       reference,
     });
   } catch (err) {
+    const detail = err instanceof Error ? err.message : "Invalid request";
     console.error("Booking API error:", err);
     return NextResponse.json(
-      { ok: false, message: "Invalid request" },
-      { status: 400 }
+      { ok: false, message: detail },
+      { status: 500 }
     );
   }
 }

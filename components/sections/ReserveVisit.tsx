@@ -12,7 +12,7 @@ import { useBookingForm } from "@/hooks/useBookingForm";
 import { useBookingUi } from "@/components/providers/BookingUiProvider";
 
 export function ReserveVisit() {
-  const { values, errors, status, reference, setField, submit, reset } =
+  const { values, errors, status, reference, errorMessage, setField, submit, reset } =
     useBookingForm();
   const { selectedCenter, setSelectedCenter } = useBookingUi();
 
@@ -179,8 +179,8 @@ export function ReserveVisit() {
 
                     {status === "error" && (
                       <p className="text-center text-sm text-red-400">
-                        Something went wrong. Please try again or call us
-                        directly.
+                        {errorMessage ||
+                          "Something went wrong. Please try again or call us directly."}
                       </p>
                     )}
                   </motion.form>

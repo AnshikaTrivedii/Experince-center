@@ -17,6 +17,7 @@ export function useBookingForm() {
   const [errors, setErrors] = useState<BookingErrors>({});
   const [status, setStatus] = useState<Status>("idle");
   const [reference, setReference] = useState<string | null>(null);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const setField = <K extends keyof BookingFormValues>(
     key: K,
@@ -36,6 +37,7 @@ export function useBookingForm() {
     const normalized = { ...initialBookingValues, ...values };
     const validationErrors = validateBooking(normalized);
     setErrors(validationErrors);
+    setErrorMessage(null);
     if (Object.keys(validationErrors).length > 0) {
       return false;
     }
@@ -47,9 +49,14 @@ export function useBookingForm() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(normalized),
       });
-      const data = await res.json();
+      const data = await res.json().catch(() => ({}));
       if (!res.ok) {
         if (data.errors) setErrors(data.errors);
+        setErrorMessage(
+          typeof data.message === "string"
+            ? data.message
+            : "Something went wrong. Please try again or call us directly."
+        );
         setStatus("error");
         return false;
       }
@@ -57,6 +64,9 @@ export function useBookingForm() {
       setStatus("success");
       return true;
     } catch {
+      setErrorMessage(
+        "Could not reach the booking server. Please try again or call us directly."
+      );
       setStatus("error");
       return false;
     }
@@ -67,7 +77,17 @@ export function useBookingForm() {
     setErrors({});
     setStatus("idle");
     setReference(null);
+    setErrorMessage(null);
   };
 
-  return { values, errors, status, reference, setField, submit, reset };
+  return {
+    values,
+    errors,
+    status,
+    reference,
+    errorMessage,
+    setField,
+    submit,
+    reset,
+  };
 }
