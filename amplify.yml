@@ -9,7 +9,7 @@ frontend:
     build:
       commands:
         # Next.js SSR (WEB_COMPUTE) — API routes require Amplify Hosting compute
-        - env | grep -E '^(RESEND_|BOOKING_)' | sed 's/=.*/=***/' || echo "WARN: booking env vars not visible at build time"
+        - "env | grep -E '^(RESEND_|BOOKING_)' | sed 's/=.*/=***/' || echo 'WARN: booking env vars not visible at build time'"
         - npm run build
   artifacts:
     # Critical for Next.js SSR + /api routes on Amplify Hosting compute
