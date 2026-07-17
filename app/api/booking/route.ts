@@ -21,6 +21,8 @@ function buildEmailHtml(body: BookingFormValues, reference: string) {
     ["Email", body.email],
     ["City", body.city || "—"],
     ["Preferred Centre", body.center],
+    ["Preferred Date", body.visitDate || "—"],
+    ["Preferred Time", body.visitTime || "—"],
   ];
 
   return `

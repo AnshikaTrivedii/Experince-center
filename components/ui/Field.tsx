@@ -16,13 +16,14 @@ interface InputFieldProps
 }
 
 export const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
-  ({ label, id, error, className, ...props }, ref) => {
+  ({ label, id, error, className, value, ...props }, ref) => {
     return (
       <div className="relative">
         <input
           id={id}
           ref={ref}
           placeholder={label}
+          value={value ?? ""}
           className={cn(
             baseField,
             error && "border-red-500/60 focus:border-red-500/60 focus:ring-red-500/20",
@@ -47,13 +48,14 @@ interface TextareaFieldProps
 }
 
 export const TextareaField = forwardRef<HTMLTextAreaElement, TextareaFieldProps>(
-  ({ label, id, error, className, ...props }, ref) => {
+  ({ label, id, error, className, value, ...props }, ref) => {
     return (
       <div className="relative">
         <textarea
           id={id}
           ref={ref}
           placeholder={label}
+          value={value ?? ""}
           className={cn(baseField, "min-h-[110px] resize-none", className)}
           {...props}
         />
@@ -76,15 +78,16 @@ interface SelectFieldProps
 
 export const SelectField = forwardRef<HTMLSelectElement, SelectFieldProps>(
   ({ label, id, options, error, className, value, ...props }, ref) => {
+    const selectValue = value ?? "";
     return (
       <div className="relative">
         <select
           id={id}
           ref={ref}
-          value={value}
+          value={selectValue}
           className={cn(
             "w-full appearance-none rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-sm text-white outline-none transition-all duration-300 focus:border-accent-cyan/50 focus:bg-white/[0.05] focus:ring-2 focus:ring-accent-cyan/20",
-            !value && "text-white/40",
+            !selectValue && "text-white/40",
             error && "border-red-500/60",
             className
           )}

@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { FiCheck, FiArrowRight } from "react-icons/fi";
-import { EXPERIENCE_CENTER_OPTIONS } from "@/lib/data";
+import { EXPERIENCE_CENTER_OPTIONS, TIME_SLOTS } from "@/lib/data";
 import { SectionHeading } from "@/components/common/SectionHeading";
 import { InputField, SelectField } from "@/components/ui/Field";
 import { GlowButton } from "@/components/ui/GlowButton";
@@ -137,6 +137,24 @@ export function ReserveVisit() {
                           setSelectedCenter(e.target.value);
                         }}
                         error={errors.center}
+                      />
+                      <InputField
+                        id="visitDate"
+                        type="date"
+                        label="Preferred Date *"
+                        value={values.visitDate}
+                        min={new Date().toISOString().slice(0, 10)}
+                        onChange={(e) => setField("visitDate", e.target.value)}
+                        error={errors.visitDate}
+                        className="scheme-dark [color-scheme:dark]"
+                      />
+                      <SelectField
+                        id="visitTime"
+                        label="Preferred Time *"
+                        options={[...TIME_SLOTS]}
+                        value={values.visitTime}
+                        onChange={(e) => setField("visitTime", e.target.value)}
+                        error={errors.visitTime}
                       />
                     </div>
 

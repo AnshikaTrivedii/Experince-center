@@ -5,6 +5,8 @@ export interface BookingFormValues {
   phone: string;
   city: string;
   center: string;
+  visitDate: string;
+  visitTime: string;
   timeline: string;
 }
 
@@ -12,6 +14,14 @@ export type BookingErrors = Partial<Record<keyof BookingFormValues, string>>;
 
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const phoneRegex = /^[+]?[\d\s-]{8,15}$/;
+
+function todayIsoDate() {
+  const d = new Date();
+  const yyyy = d.getFullYear();
+  const mm = String(d.getMonth() + 1).padStart(2, "0");
+  const dd = String(d.getDate()).padStart(2, "0");
+  return `${yyyy}-${mm}-${dd}`;
+}
 
 export function validateBooking(values: BookingFormValues): BookingErrors {
   const errors: BookingErrors = {};
@@ -28,6 +38,12 @@ export function validateBooking(values: BookingFormValues): BookingErrors {
 
   if (!values.center) errors.center = "Select a preferred experience centre";
 
+  if (!values.visitDate) errors.visitDate = "Select a preferred date";
+  else if (values.visitDate < todayIsoDate())
+    errors.visitDate = "Please choose today or a future date";
+
+  if (!values.visitTime) errors.visitTime = "Select a preferred time slot";
+
   return errors;
 }
 
@@ -38,6 +54,8 @@ export const initialBookingValues: BookingFormValues = {
   phone: "",
   city: "",
   center: "",
+  visitDate: "",
+  visitTime: "",
   timeline: "",
 };
 

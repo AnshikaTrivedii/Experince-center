@@ -11,7 +11,9 @@ import {
 type Status = "idle" | "submitting" | "success" | "error";
 
 export function useBookingForm() {
-  const [values, setValues] = useState<BookingFormValues>(initialBookingValues);
+  const [values, setValues] = useState<BookingFormValues>(() => ({
+    ...initialBookingValues,
+  }));
   const [errors, setErrors] = useState<BookingErrors>({});
   const [status, setStatus] = useState<Status>("idle");
   const [reference, setReference] = useState<string | null>(null);
@@ -20,7 +22,7 @@ export function useBookingForm() {
     key: K,
     value: BookingFormValues[K]
   ) => {
-    setValues((prev) => ({ ...prev, [key]: value }));
+    setValues((prev) => ({ ...initialBookingValues, ...prev, [key]: value }));
     if (errors[key]) {
       setErrors((prev) => {
         const next = { ...prev };
@@ -31,7 +33,8 @@ export function useBookingForm() {
   };
 
   const submit = async () => {
-    const validationErrors = validateBooking(values);
+    const normalized = { ...initialBookingValues, ...values };
+    const validationErrors = validateBooking(normalized);
     setErrors(validationErrors);
     if (Object.keys(validationErrors).length > 0) {
       return false;
@@ -42,7 +45,7 @@ export function useBookingForm() {
       const res = await fetch("/api/booking", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(values),
+        body: JSON.stringify(normalized),
       });
       const data = await res.json();
       if (!res.ok) {
@@ -60,7 +63,7 @@ export function useBookingForm() {
   };
 
   const reset = () => {
-    setValues(initialBookingValues);
+    setValues({ ...initialBookingValues });
     setErrors({});
     setStatus("idle");
     setReference(null);

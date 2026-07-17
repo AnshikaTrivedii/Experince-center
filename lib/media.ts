@@ -60,6 +60,10 @@ export const MEDIA = {
         src: "/videos/mumbai-office-launch.mp4",
         type: "video/mp4" as const,
       },
+      bookingQr: {
+        src: "/images/mumbai-booking-qr.png",
+        alt: "Scan to book a visit at the Mumbai Experience Centre",
+      },
     },
     delhi: {
       poster: {
@@ -69,6 +73,10 @@ export const MEDIA = {
       video: {
         src: "/videos/delhi-experience-centre.mp4",
         type: "video/mp4" as const,
+      },
+      bookingQr: {
+        src: "/images/delhi-booking-qr.png",
+        alt: "Scan to book a visit at the Delhi Experience Centre",
       },
     },
   },

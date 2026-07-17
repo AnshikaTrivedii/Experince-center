@@ -436,10 +436,15 @@ export const BOOKING_BENEFITS = [
 
 export const EXPERIENCE_CENTER_OPTIONS = ["Mumbai", "Delhi NCR"];
 export const TIME_SLOTS = [
-  "10:00 AM – 12:00 PM",
-  "12:00 PM – 2:00 PM",
-  "2:00 PM – 4:00 PM",
-  "4:00 PM – 6:00 PM",
+  "10:00 AM",
+  "11:00 AM",
+  "12:00 PM",
+  "1:00 PM",
+  "2:00 PM",
+  "3:00 PM",
+  "4:00 PM",
+  "5:00 PM",
+  "6:00 PM",
 ];
 export const PROJECT_TYPES = [
   "Indoor LED",

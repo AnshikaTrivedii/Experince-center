@@ -25,6 +25,7 @@ type CenterOption = {
   highlights: string[];
   image: { src: string; alt: string };
   video?: { src: string; type: "video/mp4" };
+  bookingQr?: { src: string; alt: string };
 };
 
 const CENTER_OPTIONS: CenterOption[] = [
@@ -41,6 +42,7 @@ const CENTER_OPTIONS: CenterOption[] = [
     highlights: ["Live Demo Wall", "VIP Tour", "Consultation"],
     image: MEDIA.centres.mumbai.poster,
     video: MEDIA.centres.mumbai.video,
+    bookingQr: MEDIA.centres.mumbai.bookingQr,
   },
   {
     id: "delhi",
@@ -54,6 +56,7 @@ const CENTER_OPTIONS: CenterOption[] = [
     highlights: ["COB & SMD Walls", "CMS Demo", "Meeting Room"],
     image: MEDIA.centres.delhi.poster,
     video: MEDIA.centres.delhi.video,
+    bookingQr: MEDIA.centres.delhi.bookingQr,
   },
 ];
 
@@ -198,6 +201,31 @@ export function ChooseCentre() {
                     ))}
                   </div>
                 </button>
+
+                {center.bookingQr && (
+                  <div className="flex items-center gap-3 border-t border-white/8 bg-white/[0.03] px-5 py-4">
+                    <div className="relative h-24 w-24 shrink-0 overflow-hidden rounded-xl border border-white/10 bg-white p-1.5 sm:h-28 sm:w-28">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={center.bookingQr.src}
+                        alt={center.bookingQr.alt}
+                        className="h-full w-full object-contain"
+                      />
+                    </div>
+                    <div className="min-w-0">
+                      <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-accent-cyan">
+                        Direct booking
+                      </p>
+                      <p className="mt-1 font-display text-sm font-semibold text-white sm:text-base">
+                        Scan to book {center.label.split(" ")[0]} visit
+                      </p>
+                      <p className="mt-1 text-xs leading-relaxed text-white/45">
+                        Open your camera and scan the QR for instant Experience
+                        Centre booking.
+                      </p>
+                    </div>
+                  </div>
+                )}
 
                 <div className="flex shrink-0 flex-wrap items-center gap-2.5 border-t border-white/8 bg-white/[0.02] px-5 py-3">
                   <button
