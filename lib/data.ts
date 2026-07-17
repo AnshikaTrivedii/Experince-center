@@ -194,21 +194,21 @@ export interface GalleryItem {
 export const GALLERY_ITEMS: GalleryItem[] = [
   {
     id: 1,
-    src: "/images/gallery-project-slide-1.webp",
-    title: "Indoor LED Pillar",
+    src: "/images/gallery-led-pillars.jpg",
+    title: "LED Pillars",
     span: "big",
     type: "photo",
   },
   {
     id: 2,
-    src: "/images/gallery-projects-preview.webp",
+    src: "/images/gallery-highway-night.jpg",
     title: "Highway Night Glow",
     span: "square",
     type: "photo",
   },
   {
     id: 3,
-    src: "/images/gallery-led-projects.jpg",
+    src: "/images/gallery-landmark-tower.jpg",
     title: "Landmark Tower Display",
     span: "square",
     type: "photo",
@@ -222,7 +222,7 @@ export const GALLERY_ITEMS: GalleryItem[] = [
   },
   {
     id: 5,
-    src: "/images/gallery-project-2.webp",
+    src: "/images/gallery-city-night.jpg",
     title: "City Night Installation",
     span: "square",
     type: "photo",
