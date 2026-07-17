@@ -19,11 +19,11 @@ import { Logo } from "@/components/common/Logo";
 import { MagneticButton } from "@/components/common/MagneticButton";
 
 const SOCIALS = [
-  { icon: FaLinkedinIn, href: "#", label: "LinkedIn" },
-  { icon: FaInstagram, href: "#", label: "Instagram" },
-  { icon: FaYoutube, href: "#", label: "YouTube" },
-  { icon: FaFacebookF, href: "#", label: "Facebook" },
-  { icon: FaXTwitter, href: "#", label: "X" },
+  { icon: FaLinkedinIn, href: "https://www.linkedin.com/company/orionledindia/", label: "LinkedIn" },
+  { icon: FaInstagram, href: "https://www.instagram.com/orion_led_/", label: "Instagram" },
+  { icon: FaYoutube, href: "https://www.youtube.com/@OrionLED", label: "YouTube" },
+  { icon: FaFacebookF, href: "https://www.facebook.com/OrionLedDisplay", label: "Facebook" },
+  { icon: FaXTwitter, href: "https://x.com/Orion_LED_India", label: "X" },
 ];
 
 export function Footer() {
@@ -57,6 +57,8 @@ export function Footer() {
                 <a
                   key={s.label}
                   href={s.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   aria-label={s.label}
                   className="grid h-10 w-10 place-items-center rounded-full glass text-white/70 transition-all duration-300 hover:-translate-y-1 hover:text-accent-cyan hover:shadow-glow"
                 >
