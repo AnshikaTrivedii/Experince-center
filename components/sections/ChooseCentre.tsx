@@ -36,7 +36,7 @@ const CENTER_OPTIONS: CenterOption[] = [
     tagline: "West India Experience Centre",
     address:
       "Acme Plaza, 310-311, Andheri - Kurla Rd, Vijay Nagar Colony, J B Nagar, Andheri East, Mumbai, Maharashtra 400059",
-    hours: "Mon – Sat · 10:00 AM – 7:00 PM",
+    hours: "Mon – Sat · 10:00 AM – 6:00 PM",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=Acme+Plaza+Andheri+Kurla+Road+Andheri+East+Mumbai",
     highlights: ["Live Demo Wall", "VIP Tour", "Consultation"],
@@ -50,7 +50,7 @@ const CENTER_OPTIONS: CenterOption[] = [
     formValue: "Delhi NCR",
     tagline: "Flagship Experience Centre",
     address: "ABW Elegance Tower, Jasola, New Delhi 110025",
-    hours: "Mon – Sat · 10:00 AM – 7:00 PM",
+    hours: "Mon – Sat · 10:00 AM – 6:00 PM",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=ABW+Elegance+Tower+Jasola+New+Delhi",
     highlights: ["COB & SMD Walls", "CMS Demo", "Meeting Room"],

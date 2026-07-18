@@ -145,7 +145,7 @@ export const EXPERIENCE_CENTERS: ExperienceCenter[] = [
     address:
       "504, 5th Floor, ABW Elegance Tower, Jasola District Centre, New Delhi 110025",
     phone: "+918826888050",
-    hours: "Mon – Sat · 10:00 AM – 7:00 PM",
+    hours: "Mon – Sat · 10:00 AM – 6:00 PM",
     image: "/images/delhi-experience-centre.png",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=ABW+Elegance+Tower+Jasola+District+Centre+New+Delhi",
@@ -164,7 +164,7 @@ export const EXPERIENCE_CENTERS: ExperienceCenter[] = [
     address:
       "Acme Plaza, 310-311, Andheri - Kurla Rd, Vijay Nagar Colony, J B Nagar, Andheri East, Mumbai, Maharashtra 400059",
     phone: "+918826888050",
-    hours: "Mon – Sat · 10:00 AM – 7:00 PM",
+    hours: "Mon – Sat · 10:00 AM – 6:00 PM",
     image: "/images/mumbai-office-launch-poster.jpg",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=Acme+Plaza+Andheri+Kurla+Road+Andheri+East+Mumbai",
