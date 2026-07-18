@@ -1,8 +1,10 @@
 import { NextResponse } from "next/server";
 import { validateBooking, type BookingFormValues } from "@/lib/validation";
+import { requireAdmin } from "@/lib/middleware/requireAdmin";
 import {
   createBookingFromForm,
   createBookingReference,
+  listBookings,
   serializeBooking,
 } from "@/services/bookingService";
 import { sendBookingNotificationEmail } from "@/services/emailService";
@@ -10,7 +12,30 @@ import { sendBookingNotificationEmail } from "@/services/emailService";
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-/** Legacy public booking endpoint — saves to MongoDB and sends email. */
+export async function GET(request: Request) {
+  const { error } = await requireAdmin();
+  if (error) return error;
+
+  const { searchParams } = new URL(request.url);
+  const result = await listBookings({
+    page: Number(searchParams.get("page") || 1),
+    limit: Number(searchParams.get("limit") || 10),
+    search: searchParams.get("search") || undefined,
+    status: searchParams.get("status") || undefined,
+    centre: searchParams.get("centre") || undefined,
+    date: searchParams.get("date") || undefined,
+    sort: (searchParams.get("sort") as "newest" | "oldest") || "newest",
+  });
+
+  return NextResponse.json({
+    ok: true,
+    ...result,
+    items: result.items.map((item) =>
+      serializeBooking(item as unknown as Record<string, unknown>)
+    ),
+  });
+}
+
 export async function POST(request: Request) {
   try {
     const body = (await request.json()) as BookingFormValues;
@@ -29,7 +54,7 @@ export async function POST(request: Request) {
     try {
       booking = await createBookingFromForm(body, reference);
     } catch (err) {
-      console.error("[booking] MongoDB save failed:", err);
+      console.error("[bookings] MongoDB save failed:", err);
       return NextResponse.json(
         {
           ok: false,
@@ -47,7 +72,7 @@ export async function POST(request: Request) {
     try {
       emailId = await sendBookingNotificationEmail(body, reference);
     } catch (err) {
-      console.error("[booking] Email failed (booking still saved):", err);
+      console.error("[bookings] Email failed (booking still saved):", err);
       emailError =
         err instanceof Error ? err.message : "Email notification failed";
     }

@@ -1,7 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Sora } from "next/font/google";
 import "./globals.css";
-import { SmoothScrollProvider } from "@/components/providers/SmoothScrollProvider";
+import { AppProviders } from "@/components/providers/AppProviders";
+import { SiteChrome } from "@/components/providers/SiteChrome";
 import { AmbientBackground } from "@/components/effects/AmbientBackground";
 import { CursorGlow } from "@/components/effects/CursorGlow";
 import { ScrollProgress } from "@/components/effects/ScrollProgress";
@@ -70,10 +71,12 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${sora.variable} dark`}>
       <body className="relative min-h-screen bg-ink font-sans antialiased">
-        <AmbientBackground />
-        <ScrollProgress />
-        <CursorGlow />
-        <SmoothScrollProvider>{children}</SmoothScrollProvider>
+        <SiteChrome>
+          <AmbientBackground />
+          <ScrollProgress />
+          <CursorGlow />
+        </SiteChrome>
+        <AppProviders>{children}</AppProviders>
       </body>
     </html>
   );
