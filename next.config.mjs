@@ -9,6 +9,8 @@ const nextConfig = {
     RESEND_API_KEY: process.env.RESEND_API_KEY,
     BOOKING_TO_EMAIL: process.env.BOOKING_TO_EMAIL,
     BOOKING_FROM_EMAIL: process.env.BOOKING_FROM_EMAIL,
+    MONGODB_URI: process.env.MONGODB_URI,
+    JWT_SECRET: process.env.JWT_SECRET,
   },
   images: {
     formats: ["image/avif", "image/webp"],
