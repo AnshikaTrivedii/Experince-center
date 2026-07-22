@@ -198,8 +198,30 @@ export function Hero() {
           className="mt-8 flex flex-wrap items-center justify-center gap-3 sm:mt-10 sm:gap-4"
         >
           <MagneticButton>
-            <GlowButton size="lg" onClick={() => go("#book")}>
+            <GlowButton
+              size="lg"
+              variant="outline"
+              shimmer={false}
+              onClick={() => go("#book")}
+              className="border-white/20 bg-white/[0.04] backdrop-blur-md hover:border-accent-cyan/50"
+            >
               Reserve My Visit
+              <FiArrowRight className="transition-transform group-hover:translate-x-1" />
+            </GlowButton>
+          </MagneticButton>
+          <MagneticButton>
+            <GlowButton
+              size="lg"
+              onClick={() =>
+                window.open(
+                  "https://orion-led.com/vision/",
+                  "_blank",
+                  "noopener,noreferrer"
+                )
+              }
+              className="ring-2 ring-accent-cyan/40 ring-offset-2 ring-offset-transparent shadow-[0_0_40px_-6px_rgba(34,211,238,0.85)]"
+            >
+              Partner with ORION LED
               <FiArrowRight className="transition-transform group-hover:translate-x-1" />
             </GlowButton>
           </MagneticButton>

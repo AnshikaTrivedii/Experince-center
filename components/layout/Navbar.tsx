@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { FiMenu, FiX, FiArrowRight } from "react-icons/fi";
+import { FiMenu, FiX } from "react-icons/fi";
 import { NAV_LINKS } from "@/lib/data";
 import { cn } from "@/lib/utils";
 import { Logo } from "@/components/common/Logo";
@@ -57,30 +57,8 @@ export function Navbar() {
 
           <div className="flex items-center gap-2">
             <MagneticButton className="hidden sm:inline-flex">
-              <GlowButton
-                size="sm"
-                variant="outline"
-                shimmer={false}
-                onClick={() => scrollTo("#book")}
-                className="border-white/20 bg-white/[0.04] backdrop-blur-md hover:border-accent-cyan/50"
-              >
+              <GlowButton size="sm" onClick={() => scrollTo("#book")}>
                 Reserve My Visit
-              </GlowButton>
-            </MagneticButton>
-            <MagneticButton className="hidden md:inline-flex">
-              <GlowButton
-                size="sm"
-                onClick={() =>
-                  window.open(
-                    "https://orion-led.com/vision/",
-                    "_blank",
-                    "noopener,noreferrer"
-                  )
-                }
-                className="ring-2 ring-accent-cyan/40 ring-offset-2 ring-offset-transparent shadow-[0_0_40px_-6px_rgba(34,211,238,0.85)]"
-              >
-                Partner with ORION LED
-                <FiArrowRight className="transition-transform group-hover:translate-x-1" />
               </GlowButton>
             </MagneticButton>
             <button
@@ -129,28 +107,12 @@ export function Navbar() {
                 ))}
                 <GlowButton
                   className="mt-4 w-full"
-                  variant="outline"
-                  shimmer={false}
                   onClick={() => {
                     setOpen(false);
                     scrollTo("#book");
                   }}
                 >
                   Reserve My Visit
-                </GlowButton>
-                <GlowButton
-                  className="mt-2 w-full ring-2 ring-accent-cyan/40 shadow-[0_0_40px_-6px_rgba(34,211,238,0.85)]"
-                  onClick={() => {
-                    setOpen(false);
-                    window.open(
-                      "https://orion-led.com/vision/",
-                      "_blank",
-                      "noopener,noreferrer"
-                    );
-                  }}
-                >
-                  Partner with ORION LED
-                  <FiArrowRight className="transition-transform group-hover:translate-x-1" />
                 </GlowButton>
               </div>
             </motion.div>
